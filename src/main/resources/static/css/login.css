@@ -1,0 +1,112 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #e5e7eb;
+  margin: 0;
+}
+
+.login-container {
+  max-width: 900px;
+  margin: 5% auto;
+  background: #f5f3eb;
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.login-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.login-form {
+  flex: 1;
+  padding: 40px;
+  min-width: 300px;
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+}
+
+.login-form label {
+  display: block;
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  margin-top: 25px;
+  background-color: #2e3b2c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background-color: #1f271d;
+}
+
+.forgot-password {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.85em;
+  text-align: center;
+  color: #444;
+}
+
+.social-login {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.social-icons a img {
+  width: 24px;
+  margin: 0 10px;
+}
+
+.login-image {
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+  background-color: #f0e9d2;
+}
+
+.login-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.signup-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #ffffff;
+  border-top: 1px solid #ccc;
+}
+
+.signup-bar .btn-signup {
+  background-color: #2e3b2c;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.signup-bar .btn-signup:hover {
+  background-color: #1c2518;
+}

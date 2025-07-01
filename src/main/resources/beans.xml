@@ -22,7 +22,7 @@
   <!-- DataSource : ici H2 / remplacez si PostgreSQL -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="org.h2.Driver"/>
-    <property name="url"             value="jdbc:postgresql://localhost:5432/etu003247"/>
+    <property name="url"             value="jdbc:postgresql://localhost:5432/livre"/>
     <property name="username"        value="postgres"/>
     <property name="password"        value="123"/>
   </bean>
