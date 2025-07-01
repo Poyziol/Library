@@ -1,6 +1,6 @@
 package services;
 
-import models.Promotion;
+import models.Users;
 import repositories.PromotionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +17,11 @@ public class PromotionService
         this.repo = repo; 
     }
 
-    public List<Promotion> listAll() { return repo.findAll(); }
+    public List<Users> listAll() { return repo.findAll(); }
 
-    public Promotion get(Integer id) { return repo.findById(id).orElseThrow(() -> new RuntimeException("Promotion introuvable : " + id)); }
+    public Users get(Integer id) { return repo.findById(id).orElseThrow(() -> new RuntimeException("Promotion introuvable : " + id)); }
 
-    public Promotion save(Promotion promo) { return repo.save(promo); }
+    public Users save(Users promo) { return repo.save(promo); }
 
     public void delete(Integer id) { repo.deleteById(id); }
 }

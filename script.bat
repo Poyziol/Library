@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 
 REM ===== Configuration =====
 set "BUILD_DIR=target"
-set "WAR_NAME=crud.war"
+set "WAR_NAME=book.war"
 set "WAR_PATH=%BUILD_DIR%\%WAR_NAME%"
 set "TOMCAT_WEBAPP_DIR=C:\Program Files\Apache Software Foundation\Tomcat 10.1\webapps"
 set "TOMCAT_LIB_DIR=C:\Program Files\Apache Software Foundation\Tomcat 10.1\lib"
