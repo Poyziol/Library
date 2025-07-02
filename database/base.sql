@@ -164,6 +164,7 @@ CREATE TABLE abonnement(
 );
 
 CREATE TABLE preter_exemplaire(
+   id_preter_exemplaire SERIAL,
    id_exemplaire INTEGER,
    id_pret INTEGER,
    PRIMARY KEY(id_exemplaire, id_pret),
@@ -172,6 +173,7 @@ CREATE TABLE preter_exemplaire(
 );
 
 CREATE TABLE reserver_exemplaire(
+   id_reserver_exemplaire SERIAL,
    id_exemplaire INTEGER,
    id_reservation INTEGER,
    PRIMARY KEY(id_exemplaire, id_reservation),

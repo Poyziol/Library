@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,7 +22,6 @@ public class Users
     @Column(name = "mot_de_passe", nullable = false, length = 16)
     private String motDePasse;
 
-    @ManyToOne
     @Column(name = "id_type_users")
     private Integer idTypeUsers;
     

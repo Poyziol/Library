@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,11 +19,9 @@ public class Exemplaire
     @Column(name = "disponible")
     private Boolean disponible;
 
-    @ManyToOne
     @Column(name = "id_etat")
     private Integer idEtat;
 
-    @ManyToOne
     @Column(name = "id_livre")
     private Integer idLivre;
 

@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,15 +33,12 @@ public class Adherant
     @Column(name = "limite_quota")  
     private Integer limiteQuota;
 
-    @ManyToOne
     @Column(name = "id_reservation")
     private Integer idReservation;
 
-    @ManyToOne
     @Column(name = "id_inscription")
     private Integer idInscription;
 
-    @ManyToOne
     @Column(name = "id_type_adherant")
     private Integer idTypeAdherant;
     

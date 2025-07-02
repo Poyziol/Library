@@ -2,18 +2,23 @@ package models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "preter_exemplaire")       
 public class PreterExemplaire
 {
-    @ManyToOne
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_preter_exemplaire")  
+    private Integer idPreterExemplaire;
+
     @Column(name = "id_exemplaire")  
     private Integer idExemplaire;
 
-    @ManyToOne
     @Column(name = "id_pret")  
     private Integer idPret;
 
@@ -40,6 +45,14 @@ public class PreterExemplaire
 
     public void setIdPret(Integer idPret) {
         this.idPret = idPret;
+    }
+
+    public Integer getIdPreterExemplaire() {
+        return idPreterExemplaire;
+    }
+
+    public void setIdPreterExemplaire(Integer idPreterExemplaire) {
+        this.idPreterExemplaire = idPreterExemplaire;
     }
 
 }

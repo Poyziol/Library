@@ -1,49 +1,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
-
 <html lang="en">
-
-  <head>
-
+<head>
     <meta charset="UTF-8">
+    <title>Login - LibraByte</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-form">
+                <h2>Log in</h2>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <form action="${pageContext.request.contextPath}/login" method="post">
+                    <label>Name</label>
+                    <input type="text" name="username" placeholder="Enter your username" required />
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Enter your password" required />
 
-    <title>Home</title>
+                    <button type="submit" class="btn-login">Log In</button>
+                </form>
 
-  </head>
+                <a href="#" class="forgot-password">Forgot Password?</a>
 
-  <body>
+                <div class="social-login">
+                    <p>Log in with</p>
+                    <div class="social-icons">
+                        <a href="#"><img src="${pageContext.request.contextPath}/img/google-icon.png" alt="Google" /></a>
+                        <a href="#"><img src="${pageContext.request.contextPath}/img/facebook-icon.png" alt="Facebook" /></a>
+                        <a href="#"><img src="${pageContext.request.contextPath}/img/instagram-icon.png" alt="Instagram" /></a>
+                    </div>
+                </div>
+            </div>
 
-    <section>
-
-      <div>
-        <h1>CRUD</h1>
-      </div>
-
-      <div>
-
-        <div>
-          <form action="choix" method="get">
-            <input type="hidden" name="hide" value="L">
-            <button type="submit">GET</button>
-          </form>
+            <div class="login-image">
+                <img src="${pageContext.request.contextPath}/img/book1.jpg" alt="Books stack" />
+            </div>
         </div>
 
-        <div>
-          <form action="choix" method="get">
-            <input type="hidden" name="hide" value="C">
-            <button type="submit">POST</button>
-          </form>
+        <div class="signup-bar">
+            <span>Don't have an account?</span>
+            <a href="#" class="btn-signup">Sign Up</a>
         </div>
-
-      </div>
-
-    </section>
-
-  </body>
-
+    </div>
+</body>
 </html>

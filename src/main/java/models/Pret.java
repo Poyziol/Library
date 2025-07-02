@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,15 +30,12 @@ public class Pret
     @Column(name = "quota_actuel")  
     private Integer quotaActuel;
 
-    @ManyToOne
     @Column(name = "id_type_pret")  
     private Integer idTypePret;
 
-    @ManyToOne
     @Column(name = "id_adherant")  
     private DateFormat idAdherant;
 
-    @ManyToOne
     @Column(name = "id_status")  
     private Integer idStatus;
 

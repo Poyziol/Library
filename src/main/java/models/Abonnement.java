@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,7 +24,6 @@ public class Abonnement
     @Column(name = "date_fin")  
     private DateFormat dateFin;
 
-    @ManyToOne
     @Column(name = "id_adherant")  
     private Integer idAdherant;
 
