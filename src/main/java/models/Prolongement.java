@@ -1,6 +1,6 @@
 package models;
 
-import java.text.DateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,13 +19,13 @@ public class Prolongement
     private Integer idProlongement;
 
     @Column(name = "date_prolongement")  
-    private DateFormat dateProlongement;
+    private LocalDate dateProlongement;
 
     @Column(name = "nouvelle_date_retour")  
-    private DateFormat nouvelleDateRetour;
+    private LocalDate nouvelleDateRetour;
 
     @Column(name = "nbr_prolongement_actuel")  
-    private DateFormat nbrProlongementActuel;
+    private LocalDate nbrProlongementActuel;
 
     @Column(name = "id_pret")  
     private Integer idPret;
@@ -34,7 +34,7 @@ public class Prolongement
 
     public Prolongement() {}
 
-    public Prolongement(DateFormat dateProlongement, DateFormat nouvelleDateRetour, DateFormat nbrProlongementActuel,
+    public Prolongement(LocalDate dateProlongement, LocalDate nouvelleDateRetour, LocalDate nbrProlongementActuel,
             Integer idPret) {
         this.dateProlongement = dateProlongement;
         this.nouvelleDateRetour = nouvelleDateRetour;
@@ -50,27 +50,27 @@ public class Prolongement
         this.idProlongement = idProlongement;
     }
 
-    public DateFormat getDateProlongement() {
+    public LocalDate getDateProlongement() {
         return dateProlongement;
     }
 
-    public void setDateProlongement(DateFormat dateProlongement) {
+    public void setDateProlongement(LocalDate dateProlongement) {
         this.dateProlongement = dateProlongement;
     }
 
-    public DateFormat getNouvelleDateRetour() {
+    public LocalDate getNouvelleDateRetour() {
         return nouvelleDateRetour;
     }
 
-    public void setNouvelleDateRetour(DateFormat nouvelleDateRetour) {
+    public void setNouvelleDateRetour(LocalDate nouvelleDateRetour) {
         this.nouvelleDateRetour = nouvelleDateRetour;
     }
 
-    public DateFormat getNbrProlongementActuel() {
+    public LocalDate getNbrProlongementActuel() {
         return nbrProlongementActuel;
     }
 
-    public void setNbrProlongementActuel(DateFormat nbrProlongementActuel) {
+    public void setNbrProlongementActuel(LocalDate nbrProlongementActuel) {
         this.nbrProlongementActuel = nbrProlongementActuel;
     }
 

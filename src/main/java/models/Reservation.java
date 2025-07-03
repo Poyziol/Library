@@ -1,6 +1,6 @@
 package models;
 
-import java.text.DateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ public class Reservation
     private Integer idReservation;
 
     @Column(name = "date_reservation")  
-    private DateFormat dateReservation;
+    private LocalDate dateReservation;
 
     @Column(name = "id_status")  
     private Integer idStatus;
@@ -30,7 +30,7 @@ public class Reservation
 
     
 
-    public Reservation(DateFormat dateReservation, Integer idStatus) {
+    public Reservation(LocalDate dateReservation, Integer idStatus) {
         this.dateReservation = dateReservation;
         this.idStatus = idStatus;
     }
@@ -45,11 +45,11 @@ public class Reservation
         this.idReservation = idReservation;
     }
 
-    public DateFormat getDateReservation() {
+    public LocalDate getDateReservation() {
         return dateReservation;
     }
 
-    public void setDateReservation(DateFormat dateReservation) {
+    public void setDateReservation(LocalDate dateReservation) {
         this.dateReservation = dateReservation;
     }
 

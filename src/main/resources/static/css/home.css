@@ -1,124 +1,134 @@
-/* home.css */
+* { margin:0; padding:0; box-sizing:border-box }
+body { font-family: 'Inter', sans-serif; background: #f9f9f9; }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body, html {
-    height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #4a90e2 0%, #9013fe 100%);
-    overflow: hidden;
-  }
-  
-  section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
-    color: #ffffff;
-    animation: fadeIn 1s ease-out both;
-  }
-  
-  h1 {
-    font-size: 4rem;
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    animation: slideDown 0.8s ease-out both;
-  }
-  
-  div > div {
-    display: inline-block;
-    margin: 0 1rem;
-    animation: popIn 0.8s ease-out both;
-  }
-  
-  form {
-    display: inline-block;
-  }
-  
-  button {
-    position: relative;
-    display: inline-block;
-    padding: 0.75rem 2rem;
-    font-size: 1.25rem;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 50px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.5s ease;
-    border-radius: 50%;
-  }
-  
-  button:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  button:hover::before {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  
-  button:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-  
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes popIn {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  /* Responsive tweaks */
-  @media (max-width: 600px) {
-    h1 {
-      font-size: 2.5rem;
-    }
-    button {
-      font-size: 1rem;
-      padding: 0.6rem 1.5rem;
-    }
-  }
-  
+.wrapper { display: flex; height: 100vh; overflow: hidden; }
+
+/* ===== Sidebar ===== */
+.sidebar {
+  width: 240px;
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.sidebar-header h3 { margin:0; }
+.toggle-btn { background: none; border: none; color:#fff; font-size:1.2rem; cursor:pointer; }
+
+.sidebar-menu,
+.sidebar-footer {
+  list-style: none;
+  flex-grow: 1;
+}
+.sidebar-menu li a,
+.sidebar-footer li a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.sidebar-menu li a:hover,
+.sidebar-footer li a:hover {
+  background: #2e3b2c;
+}
+.sidebar-menu li a i,
+.sidebar-footer li a i {
+  margin-right: 0.75rem;
+}
+
+/* ===== Main content ===== */
+.main-content {
+  flex-grow: 1;
+  background: #fff;
+  overflow-y: auto;
+}
+header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header h2 { color: #3a3a3a; }
+.breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  content: "/"; color: #999; padding: 0 0.5rem;
+}
+.breadcrumb a { text-decoration: none; color: #777; }
+
+/* ===== Content panel ===== */
+.content {
+  padding: 2rem;
+}
+
+/* ===== Tableau des livres ===== */
+.book-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #111;         /* sombre pour contraster */
+  color: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.book-table thead {
+  background: #222;
+}
+.book-table th,
+.book-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.book-table th {
+  font-weight: 600;
+}
+.book-table tbody tr:nth-child(even) {
+  background: #1a1a1a;
+}
+.book-table tbody tr:hover {
+  background: #333;
+  cursor: default;
+}
+
+/* ===== Barre de filtre ===== */
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  background: #222;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.filter-bar input,
+.filter-bar select {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background: #333;
+  color: #eee;
+  min-width: 120px;
+}
+
+.filter-bar button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #0066cc;
+  color: #fff;
+  cursor: pointer;
+}
+.filter-bar button:hover {
+  background: #005bb5;
+}

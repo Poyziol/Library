@@ -1,6 +1,6 @@
 package models;
 
-import java.text.DateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ public class Inscription
     private Integer idInscription;
 
     @Column(name = "date_inscription")  
-    private DateFormat dateInscription;
+    private LocalDate dateInscription;
 
     @Column(name = "id_status")
     private Integer idStatus;
@@ -30,7 +30,7 @@ public class Inscription
 
     
 
-    public Inscription(DateFormat dateInscription, Integer idStatus) {
+    public Inscription(LocalDate dateInscription, Integer idStatus) {
         this.dateInscription = dateInscription;
         this.idStatus = idStatus;
     }
@@ -45,11 +45,11 @@ public class Inscription
         this.idInscription = idInscription;
     }
 
-    public DateFormat getDateInscription() {
+    public LocalDate getDateInscription() {
         return dateInscription;
     }
 
-    public void setDateInscription(DateFormat dateInscription) {
+    public void setDateInscription(LocalDate dateInscription) {
         this.dateInscription = dateInscription;
     }
 
