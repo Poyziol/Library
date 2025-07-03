@@ -1,4 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.lang.String" %>
+<%
+    String erreur = (String) request.getAttribute("error");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +18,10 @@
         <div class="login-box">
             <div class="login-form">
                 <h2>Log in</h2>
+
+                <% if(erreur != null) { %>
+                    <p style="color: red;"><%= erreur %></p>
+                <% } %>
 
                 <form action="${pageContext.request.contextPath}/login" method="post">
                     <label>Name</label>
@@ -29,9 +38,9 @@
                 <div class="social-login">
                     <p>Log in with</p>
                     <div class="social-icons">
-                        <a href="#"><img src="${pageContext.request.contextPath}/img/google-icon.png" alt="Google" /></a>
-                        <a href="#"><img src="${pageContext.request.contextPath}/img/facebook-icon.png" alt="Facebook" /></a>
-                        <a href="#"><img src="${pageContext.request.contextPath}/img/instagram-icon.png" alt="Instagram" /></a>
+                        <a href="#"><img src="${pageContext.request.contextPath}/img/Google.jpg" alt="Google" /></a>
+                        <a href="#"><img src="${pageContext.request.contextPath}/img/Facebook.jpg" alt="Facebook" /></a>
+                        <a href="#"><img src="${pageContext.request.contextPath}/img/Instagram.jpg" alt="Instagram" /></a>
                     </div>
                 </div>
             </div>

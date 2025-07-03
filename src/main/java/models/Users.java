@@ -30,7 +30,6 @@ public class Users
     public Users() {}
 
     
-
     public Users(String nom, String motDePasse, Integer idTypeUsers) {
         this.nom = nom;
         this.motDePasse = motDePasse;
