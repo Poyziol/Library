@@ -21,14 +21,26 @@ public class LobbyController extends HttpServlet
         WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
 
         LivreService livreService = ctx.getBean(LivreService.class);
-        List<Livre> livres = livreService.listAll();
+
+        String titre = request.getParameter("titre");
+        String auteur = request.getParameter("auteur");
+        String ageParam = request.getParameter("ageMin");
+        Integer ageMin = (ageParam != null && !ageParam.isEmpty()) ? Integer.valueOf(ageParam) : null;
+
+        List<Livre> livres = livreService.filter(titre, auteur, ageMin);
         request.setAttribute("livres", livres);
+
+        request.setAttribute("auteurs", livreService.listAuteurs());
+        request.setAttribute("ages",   livreService.listAgeMins());
+
+        request.setAttribute("filterTitre",  titre);
+        request.setAttribute("filterAuteur", auteur);
+        request.setAttribute("filterAge",    ageMin);
 
         HttpSession session = request.getSession(false);
         String typeUsers = (session != null) ? (String) session.getAttribute("type") : null;
+        request.setAttribute("typeUsers", typeUsers);
 
-
-        request.setAttribute("type", typeUsers);
         request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
     }
 

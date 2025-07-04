@@ -54,7 +54,35 @@
 
       <section class="content">
         <div class="dashboard-panel">
+
+          <form class="filter-bar" method="get" action="${pageContext.request.contextPath}/home">
+            <input type="text" name="titre" placeholder="Titre contient…" value="${filterTitre}" />
+
+            <select name="auteur">
+              <option value="">— Auteur —</option>
+              <c:forEach var="a" items="${auteurs}">
+                <option value="${a}" 
+                  <c:if test="${a == filterAuteur}">selected</c:if>>
+                  ${a}
+                </option>
+              </c:forEach>
+            </select>
+
+            <select name="ageMin">
+              <option value="">— Age min. —</option>
+              <c:forEach var="ag" items="${ages}">
+                <option value="${ag}" 
+                  <c:if test="${ag == filterAge}">selected</c:if>>
+                  ${ag}+
+                </option>
+              </c:forEach>
+            </select>
+
+            <button type="submit"><i class="fa fa-search"></i> Rechercher</button>
+          </form>
+
             <h3>Liste des livres</h3>
+            
             <table class="book-table">
               <thead>
                 <tr>
