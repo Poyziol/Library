@@ -1,10 +1,15 @@
 package models;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,7 +25,7 @@ public class Penalite
     private String motif;
 
     @Column(name = "date_debut_penalite")  
-    private Integer dateDebutPenalite;
+    private LocalDate dateDebutPenalite;
 
     @Column(name = "est_reglee")  
     private Boolean estReglee;
@@ -31,21 +36,21 @@ public class Penalite
     @Column(name = "id_pret")  
     private Integer idPret;
 
-    @Column(name = "id_adherant")  
-    private Integer idAdherant;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_adherant", referencedColumnName = "id_adherant")
+    private Adherant adherant;
 
     // ====================== Getters / Setters ======================== //
 
     public Penalite() {}
 
-    public Penalite(String motif, Integer dateDebutPenalite, Boolean estReglee, Integer duree, Integer idPret,
-            Integer idAdherant) {
+    public Penalite(String motif, LocalDate dateDebutPenalite, Boolean estReglee, Integer duree, Integer idPret, Adherant adherant) {
         this.motif = motif;
         this.dateDebutPenalite = dateDebutPenalite;
         this.estReglee = estReglee;
         this.duree = duree;
         this.idPret = idPret;
-        this.idAdherant = idAdherant;
+        this.adherant = adherant;
     }
 
     public Integer getIdPenalite() {
@@ -64,11 +69,11 @@ public class Penalite
         this.motif = motif;
     }
 
-    public Integer getDateDebutPenalite() {
+    public LocalDate getDateDebutPenalite() {
         return dateDebutPenalite;
     }
 
-    public void setDateDebutPenalite(Integer dateDebutPenalite) {
+    public void setDateDebutPenalite(LocalDate dateDebutPenalite) {
         this.dateDebutPenalite = dateDebutPenalite;
     }
 
@@ -96,12 +101,12 @@ public class Penalite
         this.idPret = idPret;
     }
 
-    public Integer getIdAdherant() {
-        return idAdherant;
+    public Adherant getAdherant() {
+        return adherant;
     }
 
-    public void setIdAdherant(Integer idAdherant) {
-        this.idAdherant = idAdherant;
+    public void setAdherant(Adherant Adherant) {
+        this.adherant = Adherant;
     }
 
    

@@ -51,12 +51,15 @@ INSERT INTO inscription(date_inscription, id_status) VALUES
 -- 10) Utilisateurs (pour login)
 INSERT INTO users(nom, mot_de_passe, id_type_users) VALUES
   ('admin',    '123', 1),  -- Bibliothécaire
-  ('client1',  '123', 2);  -- Client
+  ('client1',  '123', 2),  -- Client
+  ('client2',  '123', 2),
+  ('client3',  '123', 2),
+  ('client4',  '123', 2);
 
 -- 11) Adhérents
-INSERT INTO adherant(nom, prenom, date_de_naissance, telephone, limite_quota, id_reservation, id_inscription, id_type_adherant) VALUES
-  ('Martin',    'Alice',  '1995-04-12',  30, 5, 1, 1, 3),  -- Étudiant
-  ('Leblanc',   'Bruno',  '1980-11-03',  31, 3, 2, 2, 1);  -- Professionnel
+INSERT INTO adherant(nom, prenom, date_de_naissance, telephone, limite_quota, id_users, id_reservation, id_inscription, id_type_adherant) VALUES
+  ('Martin',    'Alice',  '1995-04-12', 3, 3, 5, 1, 1, 3),  -- Étudiant
+  ('Leblanc',   'Bruno',  '1980-11-03', 4, 5, 3, 2, 2, 1);  -- Professionnel
 
 -- 12) Prêts
 INSERT INTO pret(date_pret, date_retour_estime, date_retour_reel, quota_actuel, id_type_pret, id_adherant, id_status) VALUES

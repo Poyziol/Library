@@ -7,6 +7,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import models.Users;
+import services.AdherantService;
 import services.TypeUsersService;
 import services.UsersService;
 
@@ -25,9 +26,11 @@ public class LoginServlet extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+        //PrintWriter out = response.getWriter();
         WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         UsersService users_service = ctx.getBean(UsersService.class);
         TypeUsersService type_users_service = ctx.getBean(TypeUsersService.class);
+        AdherantService adherantService = ctx.getBean(AdherantService.class);
 
         String name = request.getParameter("username");
         String password = request.getParameter("password");
@@ -38,6 +41,17 @@ public class LoginServlet extends HttpServlet
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user.get());
             session.setAttribute("type", type_users_service.get(user.get().getIdTypeUsers()).getNom());
+
+            Integer idAdherant = adherantService.getByUserId(user.get().getIdUsers()).getIdAdherant();
+
+            if(idAdherant != null) 
+            {
+                session.setAttribute("idAdherant", idAdherant);
+            } 
+            else 
+            {
+                session.setAttribute("idAdherant", null); 
+            }
 
             response.sendRedirect(request.getContextPath() + "/home");
         }

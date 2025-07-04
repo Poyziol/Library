@@ -25,6 +25,7 @@ public class Users
     @Column(name = "id_type_users")
     private Integer idTypeUsers;
     
+    
     // ====================== Getters / Setters ======================== //
 
     public Users() {}

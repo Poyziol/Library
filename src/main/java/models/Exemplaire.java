@@ -1,80 +1,62 @@
 package models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "exemplaire")       
-public class Exemplaire
-{
+@Table(name = "exemplaire")
+public class Exemplaire {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_exemplaire")  
+    @Column(name = "id_exemplaire")
     private Integer idExemplaire;
 
-    @Column(name = "disponible")
+    // Map BOOLEAN in DB to Boolean in Java
+    @Column(name = "disponible", nullable = false)
     private Boolean disponible;
 
-    @Column(name = "id_etat")
-    private Integer idEtat;
+    // Relation vers Etat (clé boolean)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_etat", nullable = false)
+    private Etat etat;
 
-    @Column(name = "id_livre")
-    private Integer idLivre;
-
-
-    // ====================== Getters / Setters ======================== //
+    // Relation vers Livre
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_livre", nullable = false)
+    private Livre livre;
 
     public Exemplaire() {}
 
-
-    public Exemplaire(Boolean disponible, Integer idEtat, Integer idLivre) {
-        this.disponible = disponible;
-        this.idEtat = idEtat;
-        this.idLivre = idLivre;
-    }
-
+    // Getters / Setters
     public Integer getIdExemplaire() {
         return idExemplaire;
     }
-
 
     public void setIdExemplaire(Integer idExemplaire) {
         this.idExemplaire = idExemplaire;
     }
 
-
     public Boolean getDisponible() {
         return disponible;
     }
-
 
     public void setDisponible(Boolean disponible) {
         this.disponible = disponible;
     }
 
-
-    public Integer getIdEtat() {
-        return idEtat;
+    public Etat getEtat() {
+        return etat;
     }
 
-
-    public void setIdEtat(Integer idEtat) {
-        this.idEtat = idEtat;
+    public void setEtat(Etat etat) {
+        this.etat = etat;
     }
 
-
-    public Integer getIdLivre() {
-        return idLivre;
+    public Livre getLivre() {
+        return livre;
     }
 
-
-    public void setIdLivre(Integer idLivre) {
-        this.idLivre = idLivre;
+    public void setLivre(Livre livre) {
+        this.livre = livre;
     }
-
-    
 }
