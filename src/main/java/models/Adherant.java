@@ -4,9 +4,12 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -41,13 +44,16 @@ public class Adherant
 
     @Column(name = "id_type_adherant")
     private Integer idTypeAdherant;
+
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_users", nullable = false, unique = true)
+    private Users user;
     
     // ====================== Getters / Setters ======================== //
 
     public Adherant() {}
 
-    public Adherant(String nom, String prenom, LocalDate dateDeNaissance, Integer telephone, Integer limiteQuota,
-            Integer idReservation, Integer idInscription, Integer idTypeAdherant) {
+    public Adherant(String nom, String prenom, LocalDate dateDeNaissance, Integer telephone, Integer limiteQuota, Integer idReservation, Integer idInscription, Integer idTypeAdherant) {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
@@ -56,6 +62,19 @@ public class Adherant
         this.idReservation = idReservation;
         this.idInscription = idInscription;
         this.idTypeAdherant = idTypeAdherant;
+    }
+
+    public Adherant(String nom, String prenom, LocalDate dateDeNaissance, Integer telephone, Integer limiteQuota,
+            Integer idReservation, Integer idInscription, Integer idTypeAdherant, Users user) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateDeNaissance = dateDeNaissance;
+        this.telephone = telephone;
+        this.limiteQuota = limiteQuota;
+        this.idReservation = idReservation;
+        this.idInscription = idInscription;
+        this.idTypeAdherant = idTypeAdherant;
+        this.user = user;
     }
 
     public Integer getIdAdherant() {
@@ -130,5 +149,14 @@ public class Adherant
         this.idTypeAdherant = idTypeAdherant;
     }
 
+    public Users getUser() {
+      return user;
+    }
+
+    public void setUser(Users user) {
+      this.user = user;
+  }
+
+    
     
 }

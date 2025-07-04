@@ -14,7 +14,12 @@ public class TypeUsersService {
     private final TypeUsersRepository repo;
     public TypeUsersService(TypeUsersRepository repo) { this.repo = repo; }
     public List<TypeUsers> listAll() { return repo.findAll(); }
-    public TypeUsers get(Integer id) { return repo.findById(id).orElseThrow(() -> new RuntimeException("TypeUsers introuvable : " + id)); }
     public TypeUsers save(TypeUsers obj) { return repo.save(obj); }
     public void delete(Integer id) { repo.deleteById(id); }
+
+    public TypeUsers get(Integer idTypeUsers) 
+    {
+        return repo.findByIdTypeUsers(idTypeUsers).orElseThrow(() -> new RuntimeException("TypeUsers introuvable pour l’ID " + idTypeUsers));
+    }
+
 }

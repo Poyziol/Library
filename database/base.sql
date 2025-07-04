@@ -104,11 +104,14 @@ CREATE TABLE adherant(
    date_de_naissance DATE NOT NULL,
    telephone INTEGER,
    limite_quota INTEGER NOT NULL,
+   id_users INTEGER NOT NULL,
    id_reservation INTEGER NOT NULL,
    id_inscription INTEGER NOT NULL,
    id_type_adherant INTEGER NOT NULL,
    PRIMARY KEY(id_adherant),
+   UNIQUE(id_users),
    UNIQUE(telephone),
+   FOREIGN KEY(id_users) REFERENCES users(id_users),
    FOREIGN KEY(id_reservation) REFERENCES reservation(id_reservation),
    FOREIGN KEY(id_inscription) REFERENCES inscription(id_inscription),
    FOREIGN KEY(id_type_adherant) REFERENCES type_adherant(id_type_adherant)
@@ -164,7 +167,6 @@ CREATE TABLE abonnement(
 );
 
 CREATE TABLE preter_exemplaire(
-   id_preter_exemplaire SERIAL,
    id_exemplaire INTEGER,
    id_pret INTEGER,
    PRIMARY KEY(id_exemplaire, id_pret),
@@ -173,7 +175,6 @@ CREATE TABLE preter_exemplaire(
 );
 
 CREATE TABLE reserver_exemplaire(
-   id_reserver_exemplaire SERIAL,
    id_exemplaire INTEGER,
    id_reservation INTEGER,
    PRIMARY KEY(id_exemplaire, id_reservation),

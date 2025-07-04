@@ -1,48 +1,45 @@
 package models;
 
 import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "abonnement")       
-public class Abonnement
-{
+@Table(name = "abonnement")
+public class Abonnement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_abonnement")  
-    private Integer idAbonnement;
+    @Column(name = "id_abonnement")
+    private Integer id;
 
-    @Column(name = "date_debut")  
+    @Column(name = "date_debut", nullable = false)
     private LocalDate dateDebut;
 
-    @Column(name = "date_fin")  
+    @Column(name = "date_fin", nullable = false)
     private LocalDate dateFin;
 
-    @Column(name = "id_adherant")  
-    private Integer idAdherant;
+    // === Passage de l'Integer à une association ManyToOne ===
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_adherant", nullable = false)
+    private Adherant adherant;
 
-    // ====================== Getters / Setters ======================== //
 
     public Abonnement() {}
 
-    public Abonnement(LocalDate dateDebut, LocalDate dateFin, Integer idAdherant) {
+    public Abonnement(LocalDate dateDebut, LocalDate dateFin, Adherant adherant) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.idAdherant = idAdherant;
+        this.adherant = adherant;
     }
 
-    public Integer getIdAbonnement() {
-        return idAbonnement;
+    // ===== Getters / Setters =====
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdAbonnement(Integer idAbonnement) {
-        this.idAbonnement = idAbonnement;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public LocalDate getDateDebut() {
@@ -61,13 +58,11 @@ public class Abonnement
         this.dateFin = dateFin;
     }
 
-    public Integer getIdAdherant() {
-        return idAdherant;
+    public Adherant getAdherant() {
+        return adherant;
     }
 
-    public void setIdAdherant(Integer idAdherant) {
-        this.idAdherant = idAdherant;
+    public void setAdherant(Adherant adherant) {
+        this.adherant = adherant;
     }
-
-   
 }
