@@ -1,6 +1,6 @@
 package models;
 
-import java.text.DateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +28,7 @@ public class Livre
     private String auteur;
 
     @Column(name = "annee_publication")
-    private DateFormat anneePublication;
+    private LocalDate anneePublication;
 
     @Column(name = "age_min")
     private Integer ageMin;
@@ -37,9 +37,8 @@ public class Livre
 
     public Livre() {}
 
-    
 
-    public Livre(String titre, String resume, String auteur, DateFormat anneePublication, Integer ageMin) {
+    public Livre(String titre, String resume, String auteur, LocalDate anneePublication, Integer ageMin) {
         this.titre = titre;
         this.resume = resume;
         this.auteur = auteur;
@@ -79,11 +78,11 @@ public class Livre
         this.auteur = auteur;
     }
 
-    public DateFormat getAnneePublication() {
+    public LocalDate getAnneePublication() {
         return anneePublication;
     }
 
-    public void setAnneePublication(DateFormat anneePublication) {
+    public void setAnneePublication(LocalDate anneePublication) {
         this.anneePublication = anneePublication;
     }
 

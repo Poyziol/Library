@@ -27,13 +27,7 @@ echo [DEBUG] Maven exited with code %ERRORLEVEL%
 
 echo.
 echo =================================================
-echo [2] Listing contents of %BUILD_DIR%...
-echo =================================================
-dir "%BUILD_DIR%"
-
-echo.
-echo =================================================
-echo [3] Checking WAR file presence...
+echo [2] Checking WAR file presence...
 echo Expected at: "%WAR_PATH%"
 echo =================================================
 if exist "%WAR_PATH%" (
@@ -44,19 +38,7 @@ if exist "%WAR_PATH%" (
 
 echo.
 echo =================================================
-echo [4] Checking Tomcat webapps directory...
-echo =================================================
-if exist "%TOMCAT_WEBAPP_DIR%" (
-    echo [OK] Tomcat webapps exists.
-    echo [DEBUG] Its contents:
-    dir "%TOMCAT_WEBAPP_DIR%"
-) else (
-    echo [ERROR] Tomcat webapps directory NOT found: %TOMCAT_WEBAPP_DIR%
-)
-
-echo.
-echo =================================================
-echo [5] Attempting to copy WAR to Tomcat...
+echo [3] Attempting to copy WAR to Tomcat...
 echo      copy "%WAR_PATH%" "%TOMCAT_WEBAPP_DIR%\" /Y
 echo =================================================
 copy "%WAR_PATH%" "%TOMCAT_WEBAPP_DIR%\" /Y
@@ -66,12 +48,6 @@ if %ERRORLEVEL% equ 0 (
 ) else (
     echo [ERROR] Failed to copy WAR file.
 )
-
-echo.
-echo =================================================
-echo [6] Final contents of Tomcat webapps:
-echo =================================================
-dir "%TOMCAT_WEBAPP_DIR%"
 
 echo.
 echo =================================================

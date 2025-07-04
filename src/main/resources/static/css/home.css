@@ -6,7 +6,7 @@ body { font-family: 'Inter', sans-serif; background: #f9f9f9; }
 /* ===== Sidebar ===== */
 .sidebar {
   width: 240px;
-  background: #5c3a21;
+  background: #000;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@ body { font-family: 'Inter', sans-serif; background: #f9f9f9; }
 }
 .sidebar-menu li a:hover,
 .sidebar-footer li a:hover {
-  background: #4b2e19;
+  background: #2e3b2c;
 }
 .sidebar-menu li a i,
 .sidebar-footer li a i {
@@ -71,8 +71,32 @@ header h2 { color: #3a3a3a; }
 .content {
   padding: 2rem;
 }
-.dashboard-panel {
-  background: #c8beb6;
-  border-radius: 1rem;
-  min-height: 70vh;
+
+/* ===== Tableau des livres ===== */
+.book-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #111;         /* sombre pour contraster */
+  color: #eee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.book-table thead {
+  background: #222;
+}
+.book-table th,
+.book-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.book-table th {
+  font-weight: 600;
+}
+.book-table tbody tr:nth-child(even) {
+  background: #1a1a1a;
+}
+.book-table tbody tr:hover {
+  background: #333;
+  cursor: default;
 }

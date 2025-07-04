@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-    String typeUsers = (String) request.getAttribute("typeUsers");
-%>
+<c:set var="typeUsers" value="${sessionScope.type}" />
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,14 +14,17 @@
     <!-- Sidebar -->
     <nav class="sidebar">
       <div class="sidebar-header">
-        <h3>Admin.</h3>
+        <c:if test="${typeUsers == 'Client'}">
+            <h3>Client.</h3>
+        </c:if>
+        <c:if test="${typeUsers == 'Bibliothecaire'}">
+            <h3>Bibliothecaire.</h3>
+        </c:if>
         <button class="toggle-btn"><i class="fa fa-bars"></i></button>
       </div>
       <ul class="sidebar-menu">
-        <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-chart-line"></i> Tableau de bord</a></li>
-
         <!-- Pour tous : lien Livres -->
-        <li><a href="#"><i class="fa fa-book"></i> Livres</a></li>
+        <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-book"></i> Livres</a></li>
 
         <!-- Si client seulement -->
         <c:if test="${typeUsers == 'Client'}">
@@ -41,29 +42,45 @@
       </ul>
 
       <ul class="sidebar-footer">
-        <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
+        <li><a href="${pageContext.request.contextPath}/login"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
       </ul>
     </nav>
 
     <!-- Main content -->
     <div class="main-content">
       <header>
-        <h2>Tableau de bord</h2>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/home">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tableau de bord</li>
-          </ol>
-        </nav>
+        <h2>Bibliotheque backoffice</h2>
       </header>
 
       <section class="content">
-        <!-- Zone grisée de la capture -->
         <div class="dashboard-panel">
-          <!-- Ici tes widgets, graphiques, etc. -->
+            <h3>Liste des livres</h3>
+            <table class="book-table">
+              <thead>
+                <tr>
+                  <th>Titre</th>
+                  <th>Auteur</th>
+                  <th>Année</th>
+                  <th>Âge min.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:forEach var="livre" items="${livres}">
+                  <tr>
+                    <td>${livre.titre}</td>
+                    <td>${livre.auteur}</td>
+                    <td>${livre.anneePublication}</td>
+                    <td>${livre.ageMin}</td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
         </div>
       </section>
+
     </div>
   </div>
+
+
 </body>
 </html>

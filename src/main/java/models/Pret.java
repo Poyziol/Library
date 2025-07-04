@@ -1,6 +1,6 @@
 package models;
 
-import java.text.DateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,13 +19,13 @@ public class Pret
     private Integer idPret;
 
     @Column(name = "date_pret")  
-    private DateFormat datePret;
+    private LocalDate datePret;
 
     @Column(name = "date_retour_estime")  
-    private DateFormat dateRetourEstime;
+    private LocalDate dateRetourEstime;
 
     @Column(name = "date_retour_reel")  
-    private DateFormat dateRetourReel;
+    private LocalDate dateRetourReel;
 
     @Column(name = "quota_actuel")  
     private Integer quotaActuel;
@@ -34,7 +34,7 @@ public class Pret
     private Integer idTypePret;
 
     @Column(name = "id_adherant")  
-    private DateFormat idAdherant;
+    private LocalDate idAdherant;
 
     @Column(name = "id_status")  
     private Integer idStatus;
@@ -43,8 +43,8 @@ public class Pret
 
     public Pret() {}
 
-    public Pret(DateFormat datePret, DateFormat dateRetourEstime, DateFormat dateRetourReel, Integer quotaActuel,
-            Integer idTypePret, DateFormat idAdherant, Integer idStatus) {
+    public Pret(LocalDate datePret, LocalDate dateRetourEstime, LocalDate dateRetourReel, Integer quotaActuel,
+            Integer idTypePret, LocalDate idAdherant, Integer idStatus) {
         this.datePret = datePret;
         this.dateRetourEstime = dateRetourEstime;
         this.dateRetourReel = dateRetourReel;
@@ -62,27 +62,27 @@ public class Pret
         this.idPret = idPret;
     }
 
-    public DateFormat getDatePret() {
+    public LocalDate getDatePret() {
         return datePret;
     }
 
-    public void setDatePret(DateFormat datePret) {
+    public void setDatePret(LocalDate datePret) {
         this.datePret = datePret;
     }
 
-    public DateFormat getDateRetourEstime() {
+    public LocalDate getDateRetourEstime() {
         return dateRetourEstime;
     }
 
-    public void setDateRetourEstime(DateFormat dateRetourEstime) {
+    public void setDateRetourEstime(LocalDate dateRetourEstime) {
         this.dateRetourEstime = dateRetourEstime;
     }
 
-    public DateFormat getDateRetourReel() {
+    public LocalDate getDateRetourReel() {
         return dateRetourReel;
     }
 
-    public void setDateRetourReel(DateFormat dateRetourReel) {
+    public void setDateRetourReel(LocalDate dateRetourReel) {
         this.dateRetourReel = dateRetourReel;
     }
 
@@ -102,11 +102,11 @@ public class Pret
         this.idTypePret = idTypePret;
     }
 
-    public DateFormat getIdAdherant() {
+    public LocalDate getIdAdherant() {
         return idAdherant;
     }
 
-    public void setIdAdherant(DateFormat idAdherant) {
+    public void setIdAdherant(LocalDate idAdherant) {
         this.idAdherant = idAdherant;
     }
 

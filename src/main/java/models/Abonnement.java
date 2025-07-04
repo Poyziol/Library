@@ -1,6 +1,6 @@
 package models;
 
-import java.text.DateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,10 +19,10 @@ public class Abonnement
     private Integer idAbonnement;
 
     @Column(name = "date_debut")  
-    private DateFormat dateDebut;
+    private LocalDate dateDebut;
 
     @Column(name = "date_fin")  
-    private DateFormat dateFin;
+    private LocalDate dateFin;
 
     @Column(name = "id_adherant")  
     private Integer idAdherant;
@@ -31,7 +31,7 @@ public class Abonnement
 
     public Abonnement() {}
 
-    public Abonnement(DateFormat dateDebut, DateFormat dateFin, Integer idAdherant) {
+    public Abonnement(LocalDate dateDebut, LocalDate dateFin, Integer idAdherant) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.idAdherant = idAdherant;
@@ -45,19 +45,19 @@ public class Abonnement
         this.idAbonnement = idAbonnement;
     }
 
-    public DateFormat getDateDebut() {
+    public LocalDate getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(DateFormat dateDebut) {
+    public void setDateDebut(LocalDate dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public DateFormat getDateFin() {
+    public LocalDate getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(DateFormat dateFin) {
+    public void setDateFin(LocalDate dateFin) {
         this.dateFin = dateFin;
     }
 

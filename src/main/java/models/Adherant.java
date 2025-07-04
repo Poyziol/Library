@@ -1,6 +1,6 @@
 package models;
 
-import java.text.DateFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +25,7 @@ public class Adherant
     private String prenom;
 
     @Column(name = "date_de_naissance")
-    private DateFormat dateDeNaissance;
+    private LocalDate dateDeNaissance;
 
     @Column(nullable = false)  
     private Integer telephone;
@@ -46,7 +46,7 @@ public class Adherant
 
     public Adherant() {}
 
-    public Adherant(String nom, String prenom, DateFormat dateDeNaissance, Integer telephone, Integer limiteQuota,
+    public Adherant(String nom, String prenom, LocalDate dateDeNaissance, Integer telephone, Integer limiteQuota,
             Integer idReservation, Integer idInscription, Integer idTypeAdherant) {
         this.nom = nom;
         this.prenom = prenom;
@@ -82,11 +82,11 @@ public class Adherant
         this.prenom = prenom;
     }
 
-    public DateFormat getDateDeNaissance() {
+    public LocalDate getDateDeNaissance() {
         return dateDeNaissance;
     }
 
-    public void setDateDeNaissance(DateFormat dateDeNaissance) {
+    public void setDateDeNaissance(LocalDate dateDeNaissance) {
         this.dateDeNaissance = dateDeNaissance;
     }
 
