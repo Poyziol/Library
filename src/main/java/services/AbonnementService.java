@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import repositories.AbonnementRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +41,11 @@ public class AbonnementService
     public void delete(Integer id) 
     {
         repo.deleteById(id);
+    }
+
+    public boolean isAbonnementValide(Integer idAdherant) 
+    {
+        LocalDate today = LocalDate.now();
+        return repo.existsByAdherantIdAdherantAndDateDebutLessThanEqualAndDateFinGreaterThanEqual(idAdherant, today, today);
     }
 }

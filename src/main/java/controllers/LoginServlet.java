@@ -47,7 +47,9 @@ public class LoginServlet extends HttpServlet
             if(idAdherant != null) 
             {
                 session.setAttribute("idAdherant", idAdherant);
-            } else {
+            } 
+            else 
+            {
                 session.setAttribute("idAdherant", null); 
             }
 

@@ -19,13 +19,14 @@
       <ul class="sidebar-menu">
         <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-book"></i> Livres</a></li>
         <li><a href="#"><i class="fa fa-id-card"></i> Abonnement</a></li>
-        <li><a href="#"><i class="fa fa-hand-holding"></i> Prêt</a></li>
+        <li><a href="${pageContext.request.contextPath}/penalite"><i> Penalites</i></a></li>
+        <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
         <li><a href="#"><i class="fa fa-calendar-check"></i> Réservation</a></li>
         <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
         <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
       </ul>
       <ul class="sidebar-footer">
-        <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
+        <li><a href="${pageContext.request.contextPath}/login"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
       </ul>
     </nav>
     <!-- === /Sidebar === -->

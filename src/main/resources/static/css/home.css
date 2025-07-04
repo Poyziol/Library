@@ -1,7 +1,20 @@
-* { margin:0; padding:0; box-sizing:border-box }
-body { font-family: 'Inter', sans-serif; background: #f9f9f9; }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box;
+}
 
-.wrapper { display: flex; height: 100vh; overflow: hidden; }
+body { 
+  font-family: 'Inter', sans-serif; 
+  background: #0f0f0f; 
+  color: #eee;
+}
+
+.wrapper { 
+  display: flex; 
+  min-height: 100vh; 
+  overflow: hidden; 
+}
 
 /* ===== Sidebar ===== */
 .sidebar {
@@ -16,138 +29,371 @@ body { font-family: 'Inter', sans-serif; background: #f9f9f9; }
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  background: #111;
 }
-.sidebar-header h3 { margin:0; }
-.toggle-btn { background: none; border: none; color:#fff; font-size:1.2rem; cursor:pointer; }
+.sidebar-header h3 { 
+  margin: 0; 
+  color: #4CAF50;
+}
+.toggle-btn { 
+  background: none; 
+  border: none; 
+  color: #fff; 
+  font-size: 1.2rem; 
+  cursor: pointer; 
+}
 
 .sidebar-menu,
 .sidebar-footer {
   list-style: none;
   flex-grow: 1;
+  padding: 1rem 0;
 }
 .sidebar-menu li a,
 .sidebar-footer li a {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  color: #fff;
+  padding: 0.75rem 1.5rem;
+  color: #ccc;
   text-decoration: none;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 .sidebar-menu li a:hover,
 .sidebar-footer li a:hover {
   background: #2e3b2c;
+  color: #fff;
 }
 .sidebar-menu li a i,
 .sidebar-footer li a i {
   margin-right: 0.75rem;
+  width: 20px;
+  text-align: center;
+}
+.sidebar-footer {
+  border-top: 1px solid #222;
 }
 
 /* ===== Main content ===== */
 .main-content {
   flex-grow: 1;
-  background: #fff;
+  background: #1a1a1a;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 header {
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid #2e3b2c;
+  background: #1a1a1a;
 }
-header h2 { color: #3a3a3a; }
-.breadcrumb {
-  background: transparent;
-  padding: 0;
-  margin: 0;
+header h2 { 
+  color: #4CAF50;
+  font-weight: 600;
 }
-.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
-  content: "/"; color: #999; padding: 0 0.5rem;
-}
-.breadcrumb a { text-decoration: none; color: #777; }
 
 /* ===== Content panel ===== */
 .content {
   padding: 2rem;
+  flex-grow: 1;
 }
 
-/* ===== Tableau des livres ===== */
+/* ===== Table Styles ===== */
 .book-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
-  background: #111;         /* sombre pour contraster */
-  color: #eee;
+  margin-top: 1.5rem;
+  background: #222;
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 .book-table thead {
-  background: #222;
+  background: #2e3b2c;
 }
 .book-table th,
 .book-table td {
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
   text-align: left;
 }
 .book-table th {
   font-weight: 600;
+  color: #fff;
+}
+.book-table tbody tr {
+  border-bottom: 1px solid #333;
+}
+.book-table tbody tr:last-child {
+  border-bottom: none;
 }
 .book-table tbody tr:nth-child(even) {
-  background: #1a1a1a;
+  background: #252525;
 }
 .book-table tbody tr:hover {
-  background: #333;
-  cursor: default;
+  background: #2e3b2c;
 }
 
-/* ===== Barre de filtre ===== */
+/* ===== Forms & Filters ===== */
 .filter-bar {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
   background: #222;
-  padding: 0.75rem;
+  padding: 1.25rem;
   border-radius: 8px;
 }
 
-.filter-bar input,
-.filter-bar select {
-  padding: 0.5rem 0.75rem;
-  border: none;
+.form-container {
+  background: #222;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  flex: 1 1 200px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #ccc;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #333;
   border-radius: 4px;
   background: #333;
   color: #eee;
-  min-width: 120px;
+  font-size: 1rem;
 }
 
-.filter-bar button {
-  padding: 0.5rem 1rem;
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.btn-login {
+  padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 4px;
-  background: #0066cc;
+  background: #4CAF50;
   color: #fff;
   cursor: pointer;
-}
-.filter-bar button:hover {
-  background: #005bb5;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.3s;
+  margin-top: 0.5rem;
 }
 
-.dashboard-panel form {
-  display: inline-block;
-  margin-right: 0.5rem;
+.btn-login:hover {
+  background: #3d8b40;
 }
-.dashboard-panel button {
+
+/* ===== Alerts & Messages ===== */
+.alert-danger {
+  padding: 1rem 1.5rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  color: #721c24;
+  margin: 1.5rem 0;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  color: #212529;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+/* ===== Action buttons ===== */
+.action-form {
+  display: inline-block;
+}
+
+.btn-icon {
   background: none;
   border: none;
-  color: #fff;
   cursor: pointer;
-  font-size: 1.1rem;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  padding: 5px 8px;
+  border-radius: 4px;
+  transition: all 0.3s;
 }
-.dashboard-panel button:hover {
-  color: #f00;
+
+.btn-icon:hover {
+  color: #c0392b;
+  background: rgba(231, 76, 60, 0.1);
 }
-.dashboard-panel p {
-  margin-bottom: 1rem;
+
+/* ===== No data message ===== */
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+  color: #777;
+  background: #222;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+  }
+  
+  .form-group {
+    flex: 1 1 100%;
+  }
+  
+  .wrapper {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+/* Styles pour les formulaires de pénalités */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  padding: 0.8rem 1.5rem;
+  border: 1px solid #777;
+  border-radius: 4px;
+  background: transparent;
   color: #eee;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel:hover {
+  background: #333;
+  border-color: #999;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #333;
+  color: #eee;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Styles pour les boutons de statut */
+.btn-status {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-status.reglee {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.btn-status.non-reglee {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn-status:hover {
+  opacity: 0.9;
+}
+
+/* Alertes */
+.alert-success {
+  padding: 15px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  color: #155724;
+  margin-bottom: 20px;
+}
+
+/* Styles spécifiques aux pénalités */
+.penalite-status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.status-reglee {
+  background: #4CAF50;
+  color: white;
+}
+
+.status-non-reglee {
+  background: #e74c3c;
+  color: white;
+}
+
+/* Formulaire de pénalités */
+.penalite-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.penalite-form textarea {
+  min-height: 120px;
+}
+
+/* Actions */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-toggle {
+  background: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-toggle:hover {
+  background: #e0a800;
 }

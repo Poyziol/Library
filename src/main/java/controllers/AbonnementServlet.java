@@ -38,7 +38,8 @@ public class AbonnementServlet extends HttpServlet
             request.setAttribute("abonnement", abo.orElse(null));
             request.getRequestDispatcher("/WEB-INF/views/abonnement_client.jsp").forward(request, response);
 
-        } else if ("Bibliothecaire".equals(typeUsers)) 
+        } 
+        else if("Bibliothecaire".equals(typeUsers)) 
         {
 
             List<Abonnement> abonnements = aboService.listAll();
@@ -79,20 +80,23 @@ public class AbonnementServlet extends HttpServlet
         
             response.sendRedirect(request.getContextPath() + "/abonnement");
         
-        } else if ("Bibliothecaire".equals(typeUsers)) 
+        } 
+        else if("Bibliothecaire".equals(typeUsers)) 
         {
             String action = request.getParameter("action");
             Integer idAbo  = Integer.valueOf(request.getParameter("idAbo"));
         
-            if ("delete".equals(action)) 
-        {
+            if("delete".equals(action)) 
+            {
                 aboService.delete(idAbo);
-            } else if ("renew".equals(action)) 
-        {
+            } 
+            else if("renew".equals(action)) 
+            {
                 Abonnement abo = aboService.getById(idAbo);
                 abo.setDateFin(abo.getDateFin().plusYears(1));
                 aboService.save(abo);
             }
+            
             response.sendRedirect(request.getContextPath() + "/abonnement");
         }
     }

@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="typeUsers" value="${sessionScope.type}" />
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tableau de bord</title>
+  <title>Gestion des prêts</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
@@ -15,8 +15,8 @@
     <nav class="sidebar">
       <div class="sidebar-header">
         <c:choose>
-          <c:when test="${typeUsers == 'Client'}"><h3>Client.</h3></c:when>
-          <c:when test="${typeUsers == 'Bibliothecaire'}"><h3>Bibliothécaire.</h3></c:when>
+          <c:when test="${typeUsers == 'Client'}"><h3>Client</h3></c:when>
+          <c:when test="${typeUsers == 'Bibliothecaire'}"><h3>Bibliothécaire</h3></c:when>
         </c:choose>
         <button class="toggle-btn"><i class="fa fa-bars"></i></button>
       </div>
@@ -28,10 +28,11 @@
           <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
         </c:if>
         <c:if test="${typeUsers == 'Bibliothecaire'}">
-          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Gestion Abonnements</a></li>
-          <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
-          <li><a href="#"><i class="fa fa-calendar-check"></i> Réservation</a></li>
-          <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
+          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Abonnements</a></li>
+          <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêts</a></li>
+          <li><a href="${pageContext.request.contextPath}/penalite"><i> Penalites</i></a></li>
+          <li><a href="#"><i class="fa fa-calendar-check"></i> Réservations</a></li>
+          <li><a href="#"><i class="fa fa-clock"></i> Prolongements</a></li>
           <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
         </c:if>
       </ul>
@@ -42,94 +43,123 @@
 
     <!-- Main content -->
     <div class="main-content">
-      <header><h2>Bibliothèque backoffice</h2></header>
+      <header>
+        <h2>
+          <c:choose>
+            <c:when test="${typeUsers == 'Client'}">Espace client</c:when>
+            <c:when test="${typeUsers == 'Bibliothecaire'}">Gestion des prêts</c:when>
+          </c:choose>
+        </h2>
+      </header>
+      
       <section class="content">
         <div class="dashboard-panel">
-          <!-- Filtre livres existant... -->
-          <form class="filter-bar" method="get" action="${pageContext.request.contextPath}/home">
-            <!-- vos champs titre/auteur/ageMin ici -->
-            ...
-          </form>
-
-          <h3>Liste des livres</h3>
-          <table class="book-table">
-            <!-- votre table livres ici -->
-          </table>
-
-          <!-- **Formulaire de création de prêt** (visible pour le bibliothécaire) -->
+          <!-- Formulaire de création de prêt (visible pour le bibliothécaire) -->
           <c:if test="${typeUsers == 'Bibliothecaire'}">
-            <h3>Créer un nouveau prêt</h3>
-            <form method="post" action="${pageContext.request.contextPath}/pret" class="filter-bar">
-              <label for="adherant">Adhérent</label>
-              <select id="adherant" name="idAdherant" required>
-                <option value="">— Choisir —</option>
-                <c:forEach var="a" items="${adherants}">
-                  <option value="${a.idAdherant}">${a.nom} ${a.prenom}</option>
-                </c:forEach>
-              </select>
-
-              <label for="exemplaire">Exemplaire</label>
-              <select id="exemplaire" name="idExemplaire" required>
-                <option value="">— Choisir —</option>
-                <c:forEach var="e" items="${exemplairesDisponibles}">
-                  <option value="${e.idExemplaire}">[#${e.idExemplaire}] Livre: ${e.livre.titre}</option>
-                </c:forEach>
-              </select>
-
-              <label for="datePret">Date du prêt</label>
-              <input type="date" id="datePret" name="datePret" value="${today}" required/>
-
-              <label for="dateRetourEstime">Date retour estimée</label>
-              <input type="date" id="dateRetourEstime" name="dateRetourEstime" required/>
-
-              <button type="submit" class="btn-login"><i class="fa fa-hand-holding"></i> Enregistrer prêt</button>
-            </form>
-
-            <!-- **Liste des prêts** -->
-            <h3>Prêts enregistrés</h3>
-            <table class="book-table">
-              <thead>
-                <tr>
-                  <th>ID prêt</th>
-                  <th>Adhérent</th>
-                  <th>Exemplaire</th>
-                  <th>Date prêt</th>
-                  <th>Date retour estimée</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <c:choose>
-                  <c:when test="${not empty prets}">
-                    <c:forEach var="p" items="${prets}">
-                      <tr>
-                        <td>${p.idPret}</td>
-                        <td>${p.adherant.nom} ${p.adherant.prenom}</td>
-                        <td>#${p.exemplaire.idExemplaire} (${p.exemplaire.livre.titre})</td>
-                        <td>${p.datePret}</td>
-                        <td>${p.dateRetourEstime}</td>
-                        <td>
-                          <form method="post" action="${pageContext.request.contextPath}/pret" style="display:inline">
-                            <input type="hidden" name="action" value="delete"/>
-                            <input type="hidden" name="idPret" value="${p.idPret}"/>
-                            <button type="submit" title="Retirer"><i class="fa fa-trash"></i></button>
-                          </form>
-                        </td>
-                      </tr>
+            <div class="form-container">
+              <h3>Créer un nouveau prêt</h3>
+              <form method="post" action="${pageContext.request.contextPath}/pret" class="filter-bar">
+                <div class="form-group">
+                  <label for="adherant">Adhérent</label>
+                  <select id="adherant" name="idAdherant" required>
+                    <option value="">— Choisir —</option>
+                    <c:forEach var="a" items="${adherants}">
+                      <option value="${a.idAdherant}" 
+                          ${param.idAdherant == a.idAdherant ? 'selected' : ''}>
+                        ${a.nom} ${a.prenom}
+                      </option>
                     </c:forEach>
-                  </c:when>
-                  <c:otherwise>
-                    <tr>
-                      <td colspan="6" style="text-align:center; padding:1em;">
-                        Aucun prêt enregistré.
-                      </td>
-                    </tr>
-                  </c:otherwise>
-                </c:choose>
-              </tbody>
-            </table>
-          </c:if>
+                  </select>
+                </div>
 
+                <div class="form-group">
+                  <label for="exemplaire">Exemplaire</label>
+                  <select id="exemplaire" name="idExemplaire" required>
+                    <option value="">— Choisir —</option>
+                    <c:forEach var="e" items="${exemplairesDisponibles}">
+                      <option value="${e.idExemplaire}" 
+                          ${param.idExemplaire == e.idExemplaire ? 'selected' : ''}>
+                        [#${e.idExemplaire}] ${e.livre.titre}
+                      </option>
+                    </c:forEach>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="datePret">Date du prêt</label>
+                  <input type="date" id="datePret" name="datePret" 
+                         value="${not empty param.datePret ? param.datePret : today}" required/>
+                </div>
+
+                <div class="form-group">
+                  <label for="dateRetourEstime">Date retour estimée</label>
+                  <input type="date" id="dateRetourEstime" name="dateRetourEstime" 
+                         value="${not empty param.dateRetourEstime ? param.dateRetourEstime : ''}" required/>
+                </div>
+
+                <button type="submit" class="btn-login">
+                  <i class="fa fa-hand-holding"></i> Enregistrer prêt
+                </button>
+              </form>
+            </div>
+
+            <c:if test="${not empty sessionScope.errorMessage}">
+              <div class="alert alert-danger">
+                ${sessionScope.errorMessage}
+                <c:if test="${sessionScope.errorMessage.contains('pénalités')}">
+                  <a href="${pageContext.request.contextPath}/penalite?idAdherant=${param.idAdherant}" 
+                     class="btn btn-warning btn-sm">
+                     Gérer les pénalités
+                  </a>
+                </c:if>
+              </div>
+              <c:remove var="errorMessage" scope="session"/>
+            </c:if>
+
+            <!-- Liste des prêts -->
+            <div class="table-container">
+              <h3>Prêts enregistrés</h3>
+              <c:choose>
+                <c:when test="${empty prets}">
+                  <p class="no-data">Aucun prêt enregistré.</p>
+                </c:when>
+                <c:otherwise>
+                  <table class="book-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Adhérent</th>
+                        <th>Exemplaire</th>
+                        <th>Date prêt</th>
+                        <th>Retour estimé</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:forEach var="p" items="${prets}">
+                        <tr>
+                          <td>${p.idPret}</td>
+                          <td>${p.adherant.nom} ${p.adherant.prenom}</td>
+                          <td>#${p.exemplaire.idExemplaire} (${p.exemplaire.livre.titre})</td>
+                          <td>${p.datePret}</td>
+                          <td>${p.dateRetourEstime}</td>
+                          <td>
+                            <form method="post" action="${pageContext.request.contextPath}/pret" class="action-form">
+                              <input type="hidden" name="action" value="delete"/>
+                              <input type="hidden" name="idPret" value="${p.idPret}"/>
+                              <button type="submit" class="btn-icon" title="Supprimer">
+                                <i class="fa fa-trash"></i>
+                              </button>
+                            </form>
+                          </td>
+                        </tr>
+                      </c:forEach>
+                    </tbody>
+                  </table>
+                </c:otherwise>
+              </c:choose>
+            </div>
+          </c:if>
         </div>
       </section>
     </div>

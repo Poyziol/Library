@@ -1,122 +1,77 @@
 package models;
 
 import java.time.LocalDate;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "pret")       
-public class Pret
-{
+@Table(name = "pret")
+public class Pret {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_pret")  
+    @Column(name = "id_pret")
     private Integer idPret;
 
-    @Column(name = "date_pret")  
+    @Column(name = "date_pret", nullable = false)
     private LocalDate datePret;
 
-    @Column(name = "date_retour_estime")  
+    @Column(name = "date_retour_estime", nullable = false)
     private LocalDate dateRetourEstime;
 
-    @Column(name = "date_retour_reel")  
+    @Column(name = "date_retour_reel")
     private LocalDate dateRetourReel;
 
-    @Column(name = "quota_actuel")  
+    @Column(name = "quota_actuel", nullable = false)
     private Integer quotaActuel;
 
-    @Column(name = "id_type_pret")  
+    @Column(name = "id_type_pret", nullable = false)
     private Integer idTypePret;
 
-    @Column(name = "id_adherant")  
-    private LocalDate idAdherant;
+    // Association Adherant
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_adherant", nullable = false)
+    private Adherant adherant;
 
-    @Column(name = "id_status")  
+    // Association Exemplaire via table preter_exemplaire
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "preter_exemplaire",
+        joinColumns = @JoinColumn(name = "id_pret"),
+        inverseJoinColumns = @JoinColumn(name = "id_exemplaire")
+    )
+    private Exemplaire exemplaire;
+
+    @Column(name = "id_status", nullable = false)
     private Integer idStatus;
-
-    // ====================== Getters / Setters ======================== //
 
     public Pret() {}
 
-    public Pret(LocalDate datePret, LocalDate dateRetourEstime, LocalDate dateRetourReel, Integer quotaActuel,
-            Integer idTypePret, LocalDate idAdherant, Integer idStatus) {
-        this.datePret = datePret;
-        this.dateRetourEstime = dateRetourEstime;
-        this.dateRetourReel = dateRetourReel;
-        this.quotaActuel = quotaActuel;
-        this.idTypePret = idTypePret;
-        this.idAdherant = idAdherant;
-        this.idStatus = idStatus;
-    }
+    // Getters et Setters
 
-    public Integer getIdPret() {
-        return idPret;
-    }
+    public Integer getIdPret() { return idPret; }
+    public void setIdPret(Integer idPret) { this.idPret = idPret; }
 
-    public void setIdPret(Integer idPret) {
-        this.idPret = idPret;
-    }
+    public LocalDate getDatePret() { return datePret; }
+    public void setDatePret(LocalDate datePret) { this.datePret = datePret; }
 
-    public LocalDate getDatePret() {
-        return datePret;
-    }
+    public LocalDate getDateRetourEstime() { return dateRetourEstime; }
+    public void setDateRetourEstime(LocalDate dateRetourEstime) { this.dateRetourEstime = dateRetourEstime; }
 
-    public void setDatePret(LocalDate datePret) {
-        this.datePret = datePret;
-    }
+    public LocalDate getDateRetourReel() { return dateRetourReel; }
+    public void setDateRetourReel(LocalDate dateRetourReel) { this.dateRetourReel = dateRetourReel; }
 
-    public LocalDate getDateRetourEstime() {
-        return dateRetourEstime;
-    }
+    public Integer getQuotaActuel() { return quotaActuel; }
+    public void setQuotaActuel(Integer quotaActuel) { this.quotaActuel = quotaActuel; }
 
-    public void setDateRetourEstime(LocalDate dateRetourEstime) {
-        this.dateRetourEstime = dateRetourEstime;
-    }
+    public Integer getIdTypePret() { return idTypePret; }
+    public void setIdTypePret(Integer idTypePret) { this.idTypePret = idTypePret; }
 
-    public LocalDate getDateRetourReel() {
-        return dateRetourReel;
-    }
+    public Adherant getAdherant() { return adherant; }
+    public void setAdherant(Adherant adherant) { this.adherant = adherant; }
 
-    public void setDateRetourReel(LocalDate dateRetourReel) {
-        this.dateRetourReel = dateRetourReel;
-    }
+    public Exemplaire getExemplaire() { return exemplaire; }
+    public void setExemplaire(Exemplaire exemplaire) { this.exemplaire = exemplaire; }
 
-    public Integer getQuotaActuel() {
-        return quotaActuel;
-    }
-
-    public void setQuotaActuel(Integer quotaActuel) {
-        this.quotaActuel = quotaActuel;
-    }
-
-    public Integer getIdTypePret() {
-        return idTypePret;
-    }
-
-    public void setIdTypePret(Integer idTypePret) {
-        this.idTypePret = idTypePret;
-    }
-
-    public LocalDate getIdAdherant() {
-        return idAdherant;
-    }
-
-    public void setIdAdherant(LocalDate idAdherant) {
-        this.idAdherant = idAdherant;
-    }
-
-    public Integer getIdStatus() {
-        return idStatus;
-    }
-
-    public void setIdStatus(Integer idStatus) {
-        this.idStatus = idStatus;
-    }
-
-   
+    public Integer getIdStatus() { return idStatus; }
+    public void setIdStatus(Integer idStatus) { this.idStatus = idStatus; }
 }

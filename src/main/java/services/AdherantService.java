@@ -1,13 +1,10 @@
 package services;
 
 import models.Adherant;
-import models.Users;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import repositories.AdherantRepository;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,11 +19,14 @@ public class AdherantService
     {
       return repo.findByUser_IdUsers(userId).orElseGet(() -> {
                 Adherant dummy = new Adherant();
-                       // on ne tente PAS de save(…) pour éviter les contraintes NOT NULL
-                       // on fixe juste un idAdherant qui indique "pas d'adhérent"
-                       dummy.setIdAdherant(0);
-                       return dummy;
+                dummy.setIdAdherant(0);
+                return dummy;
             });
+    }
+
+    public Adherant get(Integer id) 
+    {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Adhérent introuvable: " + id));
     }
 
     public List<Adherant> listAll() 

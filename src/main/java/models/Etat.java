@@ -14,7 +14,7 @@ public class Etat
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_etat")  
-    private Integer idEtat;
+    private Boolean idEtat;
 
     @Column(nullable = false, length = 50)
     private String libelle;
@@ -23,16 +23,16 @@ public class Etat
 
     public Etat() {}
 
-    public Etat(Integer idEtat, String libelle) {
+    public Etat(Boolean idEtat, String libelle) {
         this.idEtat = idEtat;
         this.libelle = libelle;
     }
 
-    public Integer getIdEtat() {
+    public Boolean getIdEtat() {
         return idEtat;
     }
 
-    public void setIdEtat(Integer idEtat) {
+    public void setIdEtat(Boolean idEtat) {
         this.idEtat = idEtat;
     }
 
