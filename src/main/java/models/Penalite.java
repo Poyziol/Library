@@ -33,8 +33,9 @@ public class Penalite
     @Column(name = "duree")  
     private Integer duree;
 
-    @Column(name = "id_pret")  
-    private Integer idPret;
+    @ManyToOne
+    @JoinColumn(name = "id_pret", nullable = false)
+    private Pret pret;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_adherant", referencedColumnName = "id_adherant")
@@ -44,12 +45,12 @@ public class Penalite
 
     public Penalite() {}
 
-    public Penalite(String motif, LocalDate dateDebutPenalite, Boolean estReglee, Integer duree, Integer idPret, Adherant adherant) {
+    public Penalite(String motif, LocalDate dateDebutPenalite, Boolean estReglee, Integer duree, Pret idPret, Adherant adherant) {
         this.motif = motif;
         this.dateDebutPenalite = dateDebutPenalite;
         this.estReglee = estReglee;
         this.duree = duree;
-        this.idPret = idPret;
+        this.pret = idPret;
         this.adherant = adherant;
     }
 
@@ -93,12 +94,12 @@ public class Penalite
         this.duree = duree;
     }
 
-    public Integer getIdPret() {
-        return idPret;
+    public Pret getPret() {
+        return pret;
     }
 
-    public void setIdPret(Integer idPret) {
-        this.idPret = idPret;
+    public void setPret(Pret idPret) {
+        this.pret = idPret;
     }
 
     public Adherant getAdherant() {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jakarta.persistence.EntityNotFoundException;
 import models.Penalite;
 import repositories.PenaliteRepository;
 
@@ -38,12 +39,22 @@ public class PenaliteService {
     }
 
     // Sauvegarde ou met à jour une pénalité
-    public Penalite save(Penalite obj) {
-        return repo.save(obj);
+    public void save(Penalite penalite) {
+        // Validation supplémentaire
+        if(penalite.getAdherant() == null) {
+            throw new IllegalArgumentException("Adhérent manquant");
+        }
+        if(penalite.getPret() == null) {
+            throw new IllegalArgumentException("Prêt manquant");
+        }
+        repo.save(penalite);
     }
 
     // Supprime une pénalité
     public void delete(Integer id) {
+        if(!repo.existsById(id)) {
+            throw new EntityNotFoundException("Pénalité non trouvée");
+        }
         repo.deleteById(id);
     }
 

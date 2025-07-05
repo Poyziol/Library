@@ -13,8 +13,15 @@ import repositories.TypePretRepository;
 public class TypePretService {
     private final TypePretRepository repo;
     public TypePretService(TypePretRepository repo) { this.repo = repo; }
-    public List<TypePret> listAll() { return repo.findAll(); }
-    public TypePret get(Integer id) { return repo.findById(id).orElseThrow(() -> new RuntimeException("TypePret introuvable : " + id)); }
+    public List<TypePret> listAll() 
+    {
+        return repo.findAll();
+    }
+
+    public TypePret get(Integer id) 
+    {
+        return repo.findById(id).orElseThrow(() -> new RuntimeException("Type de prêt introuvable : " + id));
+    }
     public TypePret save(TypePret obj) { return repo.save(obj); }
     public void delete(Integer id) { repo.deleteById(id); }
 }

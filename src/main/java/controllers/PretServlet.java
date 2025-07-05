@@ -15,6 +15,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import services.AdherantService;
 import services.ExemplaireService;
 import services.PretService;
+import services.TypePretService;
 
 @WebServlet("/pret")
 public class PretServlet extends HttpServlet 
@@ -31,6 +32,7 @@ public class PretServlet extends HttpServlet
         AdherantService adherantService = ctx.getBean(AdherantService.class);
         ExemplaireService exemplaireService = ctx.getBean(ExemplaireService.class);
         PretService pretService = ctx.getBean(PretService.class);
+        TypePretService typePretService = ctx.getBean(TypePretService.class);
 
         List<Adherant> adherants = adherantService.listAll();
         List<Exemplaire> exemplairesDisponibles = exemplaireService.listDisponibles();
@@ -39,6 +41,7 @@ public class PretServlet extends HttpServlet
         request.setAttribute("adherants", adherants);
         request.setAttribute("exemplairesDisponibles", exemplairesDisponibles);
         request.setAttribute("prets", prets);
+        request.setAttribute("typesPret", typePretService.listAll());
 
         request.setAttribute("today", LocalDate.now().toString());
 
@@ -67,9 +70,10 @@ public class PretServlet extends HttpServlet
                 Integer idAdherant = Integer.valueOf(request.getParameter("idAdherant"));
                 Integer idExemplaire = Integer.valueOf(request.getParameter("idExemplaire"));
                 LocalDate datePret = LocalDate.parse(request.getParameter("datePret"));
+                Integer idTypePret = Integer.valueOf(request.getParameter("idTypePret"));
                 LocalDate dateRetourEstime = LocalDate.parse(request.getParameter("dateRetourEstime"));
 
-                pretService.create(idAdherant, idExemplaire, datePret, dateRetourEstime);
+                pretService.create(idAdherant, idExemplaire, datePret, dateRetourEstime, idTypePret);
             }
         } catch (Exception ex) {
             // Stocker le message d'erreur dans la session

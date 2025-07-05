@@ -85,6 +85,14 @@
                   </select>
                 </div>
 
+                <label for="typePret">Type de prêt</label>
+                <select id="typePret" name="idTypePret" required>
+                    <option value="">— Choisir —</option>
+                    <c:forEach var="tp" items="${typesPret}">
+                        <option value="${tp.idTypePret}">${tp.libelle}</option>
+                    </c:forEach>
+                </select>
+
                 <div class="form-group">
                   <label for="datePret">Date du prêt</label>
                   <input type="date" id="datePret" name="datePret" 

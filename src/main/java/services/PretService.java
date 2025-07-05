@@ -67,7 +67,7 @@ public class PretService
         repo.deleteById(id);
     }
 
-    public void create(Integer idAdherant, Integer idExemplaire, LocalDate datePret, LocalDate dateRetourEstime) {
+    public void create(Integer idAdherant, Integer idExemplaire, LocalDate datePret, LocalDate dateRetourEstime, Integer idTypePret) {
         // Règle 1: Vérifier la disponibilité de l'exemplaire
         Exemplaire e = exemplaireService.get(idExemplaire);
         if (!e.getDisponible()) 
@@ -108,6 +108,7 @@ public class PretService
 
         e.setDisponible(false);
         exemplaireService.save(e);
+        p.setIdTypePret(idTypePret);
         p.setExemplaire(e);
         p.setIdTypePret(1);
         p.setAdherant(a);

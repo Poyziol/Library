@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "livre")       
@@ -32,6 +33,9 @@ public class Livre
 
     @Column(name = "age_min")
     private Integer ageMin;
+
+    @Transient
+    private Integer nombreExemplairesDisponibles;
 
     // ====================== Getters / Setters ======================== //
 
@@ -94,4 +98,11 @@ public class Livre
         this.ageMin = ageMin;
     }
     
+    public Integer getNombreExemplairesDisponibles() {
+        return nombreExemplairesDisponibles;
+    }
+
+    public void setNombreExemplairesDisponibles(Integer nombreExemplairesDisponibles) {
+        this.nombreExemplairesDisponibles = nombreExemplairesDisponibles;
+    }
 }

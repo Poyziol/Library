@@ -3,18 +3,18 @@ DROP TABLE preter_exemplaire;
 DROP TABLE abonnement;
 DROP TABLE penalite;
 DROP TABLE prolongement;
+DROP TABLE reservation;
 DROP TABLE pret;
 DROP TABLE adherant;
+DROP TABLE users;
 DROP TABLE inscription;
-DROP TABLE reservation;
+DROP TABLE exemplaire;
+DROP TABLE etat;
+DROP TABLE type_users;
 DROP TABLE type_pret;
 DROP TABLE status;
 DROP TABLE type_adherant;
-DROP TABLE exemplaire;
-DROP TABLE etat;
 DROP TABLE livre;
-DROP TABLE users;
-DROP TABLE type_users;
 
 CREATE TABLE livre(
    id_livre SERIAL,
@@ -45,14 +45,6 @@ CREATE TABLE type_pret(
    libelle VARCHAR(70) NOT NULL,
    PRIMARY KEY(id_type_pret),
    UNIQUE(libelle)
-);
-
-CREATE TABLE reservation(
-   id_reservation SERIAL,
-   date_reservation DATE,
-   id_status INTEGER NOT NULL,
-   PRIMARY KEY(id_reservation),
-   FOREIGN KEY(id_status) REFERENCES status(id_status)
 );
 
 CREATE TABLE type_users(
@@ -105,14 +97,12 @@ CREATE TABLE adherant(
    telephone INTEGER,
    limite_quota INTEGER NOT NULL,
    id_users INTEGER NOT NULL,
-   id_reservation INTEGER NOT NULL,
    id_inscription INTEGER NOT NULL,
    id_type_adherant INTEGER NOT NULL,
    PRIMARY KEY(id_adherant),
    UNIQUE(id_users),
    UNIQUE(telephone),
    FOREIGN KEY(id_users) REFERENCES users(id_users),
-   FOREIGN KEY(id_reservation) REFERENCES reservation(id_reservation),
    FOREIGN KEY(id_inscription) REFERENCES inscription(id_inscription),
    FOREIGN KEY(id_type_adherant) REFERENCES type_adherant(id_type_adherant)
 );
@@ -130,6 +120,16 @@ CREATE TABLE pret(
    FOREIGN KEY(id_type_pret) REFERENCES type_pret(id_type_pret),
    FOREIGN KEY(id_adherant) REFERENCES adherant(id_adherant),
    FOREIGN KEY(id_status) REFERENCES status(id_status)
+);
+
+CREATE TABLE reservation(
+   id_reservation SERIAL,
+   date_reservation DATE,
+   id_status INTEGER NOT NULL,
+   id_adherant INTEGER NOT NULL,
+   PRIMARY KEY(id_reservation),
+   FOREIGN KEY(id_status) REFERENCES status(id_status),
+   FOREIGN KEY(id_adherant) REFERENCES adherant(id_adherant)
 );
 
 CREATE TABLE prolongement(
@@ -181,3 +181,4 @@ CREATE TABLE reserver_exemplaire(
    FOREIGN KEY(id_exemplaire) REFERENCES exemplaire(id_exemplaire),
    FOREIGN KEY(id_reservation) REFERENCES reservation(id_reservation)
 );
+

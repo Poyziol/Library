@@ -37,7 +37,7 @@
         <c:if test="${typeUsers == 'Bibliothecaire'}">
           <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Gestion Abonnements</a></li>
           <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
-          <li><a href="${pageContext.request.contextPath}/penalite"><i class="fa fa-gavel"></i>Penalites</a></li>
+          <li><a href="${pageContext.request.contextPath}/penalite"><i class="fa fa-gavel"></i> Penalites</a></li>
           <li><a href="#"><i class="fa fa-calendar-check"></i> Réservation</a></li>
           <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
           <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
@@ -72,7 +72,7 @@
             </select>
 
             <select name="ageMin">
-              <option value="">— Age min. —</option>
+              <option value="">— Âge min. —</option>
               <c:forEach var="ag" items="${ages}">
                 <option value="${ag}" 
                   <c:if test="${ag == filterAge}">selected</c:if>>
@@ -81,37 +81,47 @@
               </c:forEach>
             </select>
 
-            <button type="submit"><i class="fa fa-search"></i> Rechercher</button>
+            <button type="submit">
+              <i class="fa fa-search"></i> Rechercher
+            </button>
           </form>
 
+          <div class="table-container">
             <h3>Liste des livres</h3>
 
-            <table class="book-table">
-              <thead>
-                <tr>
-                  <th>Titre</th>
-                  <th>Auteur</th>
-                  <th>Année</th>
-                  <th>Âge min.</th>
-                </tr>
-              </thead>
-              <tbody>
-                <c:forEach var="livre" items="${livres}">
-                  <tr>
-                    <td>${livre.titre}</td>
-                    <td>${livre.auteur}</td>
-                    <td>${livre.anneePublication}</td>
-                    <td>${livre.ageMin}</td>
-                  </tr>
-                </c:forEach>
-              </tbody>
-            </table>
+            <c:choose>
+              <c:when test="${empty livres}">
+                <p class="no-data">Aucun livre trouvé.</p>
+              </c:when>
+              <c:otherwise>
+                <table class="book-table">
+                  <thead>
+                    <tr>
+                      <th>Titre</th>
+                      <th>Auteur</th>
+                      <th>Année</th>
+                      <th>Âge min.</th>
+                      <th>Exemplaires</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <c:forEach var="livre" items="${livres}">
+                      <tr>
+                        <td>${livre.titre}</td>
+                        <td>${livre.auteur}</td>
+                        <td>${livre.anneePublication.year}</td>
+                        <td>${livre.ageMin}</td>
+                        <td>${livre.nombreExemplairesDisponibles}</td>
+                      </tr>
+                    </c:forEach>
+                  </tbody>
+                </table>
+              </c:otherwise>
+            </c:choose>
+          </div>
         </div>
       </section>
-
     </div>
   </div>
-
-
 </body>
 </html>
