@@ -104,14 +104,14 @@ public class PretService
         Pret p = new Pret();
         p.setDatePret(datePret);
         p.setDateRetourEstime(dateRetourEstime);
-        p.setQuotaActuel(quotaActuel + 1);
+        p.setQuotaActuel(quotaActuel - 1);
 
         e.setDisponible(false);
         exemplaireService.save(e);
         p.setExemplaire(e);
-
+        p.setIdTypePret(1);
         p.setAdherant(a);
-        p.setIdStatus(1); // Statut "en cours"
+        p.setIdStatus(1); 
 
         repo.save(p);
     }
