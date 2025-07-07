@@ -1,6 +1,8 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -43,6 +45,14 @@ public class Pret {
 
     @Column(name = "id_status", nullable = false)
     private Integer idStatus;
+
+    @Transient
+    public long getDureePret() {
+        if (datePret == null || dateRetourReel == null) {
+            return 0;
+        }
+        return ChronoUnit.DAYS.between(datePret, dateRetourReel);
+    }
 
     public Pret() {}
 

@@ -2,8 +2,10 @@ package services;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import repositories.PretRepository;
 @Transactional
 public class PretService 
 {
+    @Autowired
     private final PretRepository repo;
     private final ExemplaireService exemplaireService;
     private final AdherantService adherantService;
@@ -65,6 +68,24 @@ public class PretService
         exemplaireService.save(e);
 
         repo.deleteById(id);
+    }
+
+    public List<Pret> getHistoriqueRetours(String dateMin, String dateMax) {
+        LocalDate min = null;
+        LocalDate max = null;
+        
+        try {
+            if(dateMin != null && !dateMin.isEmpty()) {
+                min = LocalDate.parse(dateMin);
+            }
+            if(dateMax != null && !dateMax.isEmpty()) {
+                max = LocalDate.parse(dateMax);
+            }
+        } catch (DateTimeParseException e) {
+            // Gérer l'erreur si nécessaire
+        }
+        
+        return repo.findHistoriqueRetours(min, max);
     }
 
     public void create(Integer idAdherant, Integer idExemplaire, LocalDate datePret, LocalDate dateRetourEstime, Integer idTypePret) {

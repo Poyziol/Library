@@ -38,9 +38,14 @@ public class PretServlet extends HttpServlet
         List<Exemplaire> exemplairesDisponibles = exemplaireService.listDisponibles();
         List<Pret> prets = pretService.listAll();
 
+        String dateMin = request.getParameter("dateMin");
+        String dateMax = request.getParameter("dateMax");
+
         request.setAttribute("adherants", adherants);
         request.setAttribute("exemplairesDisponibles", exemplairesDisponibles);
         request.setAttribute("prets", prets);
+        List<Pret> historique = pretService.getHistoriqueRetours(dateMin, dateMax);
+        request.setAttribute("historique", historique);
         request.setAttribute("typesPret", typePretService.listAll());
 
         request.setAttribute("today", LocalDate.now().toString());
