@@ -22,4 +22,9 @@ public interface PretRepository extends JpaRepository<Pret, Integer>
     List<Pret> findHistoriqueRetours(
         @Param("dateMin") LocalDate dateMin, 
         @Param("dateMax") LocalDate dateMax);
+
+ @Query("SELECT p FROM Pret p WHERE p.adherant.idAdherant = :adherantId AND p.status.libelle = :status")
+    List<Pret> findByAdherantIdAdherantAndStatus_Libelle(
+        @Param("adherantId") Integer adherantId, 
+        @Param("status") String status);
 }

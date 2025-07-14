@@ -60,6 +60,38 @@ public class PretService
         return repo.save(obj);
     }
 
+    public List<Pret> getPretsEnCoursByAdherant(Integer adherantId) {
+        // Ajoutez un log pour déboguer
+        System.out.println("Recherche des prêts pour adhérent ID: " + adherantId);
+        
+        List<Pret> prets = repo.findByAdherantIdAdherantAndStatus_Libelle(adherantId, "EN_COURS");
+        
+        // Ajoutez un log pour voir les résultats
+        System.out.println("Nombre de prêts trouvés: " + prets.size());
+        return prets;
+    }
+
+    public void returnBook(Integer idPret) {
+        Pret p = get(idPret);                       // récupère le prêt
+        Adherant a = p.getAdherant();
+        Exemplaire e = p.getExemplaire();
+
+        // 1) positionner date de retour réel
+        p.setDateRetourReel(LocalDate.now());
+
+        // 2) remettre l'exemplaire disponible
+        e.setDisponible(true);
+        exemplaireService.save(e);
+
+        // 3) remettre une unité de quota à l'adhérent
+        a.setLimiteQuota(a.getLimiteQuota() + 1);
+        adherantService.save(a);
+
+        // 5) sauvegarder simplement le prêt mis à jour
+        repo.save(p);
+    }
+
+
     public void delete(Integer id) {
         Pret p = get(id);
         

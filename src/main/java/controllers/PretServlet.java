@@ -54,43 +54,35 @@ public class PretServlet extends HttpServlet
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-        throws ServletException, IOException {
-        
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+        WebApplicationContext ctx = WebApplicationContextUtils
+            .getRequiredWebApplicationContext(getServletContext());
         PretService pretService = ctx.getBean(PretService.class);
-
+            
         try {
             String action = request.getParameter("action");
             if ("delete".equals(action)) {
-                // Suppression d'un prêt existant
-                String sId = request.getParameter("idPret");
-                if (sId != null && !sId.isEmpty()) {
-                    Integer idPret = Integer.valueOf(sId);
-                    pretService.delete(idPret);
-                }
+                // En fait : retourner le livre (pas supprimer)
+                Integer idPret = Integer.valueOf(request.getParameter("idPret"));
+                pretService.returnBook(idPret);
             } else {
-                Integer idAdherant = Integer.valueOf(request.getParameter("idAdherant"));
-                Integer idExemplaire = Integer.valueOf(request.getParameter("idExemplaire"));
-                LocalDate datePret = LocalDate.parse(request.getParameter("datePret"));
+                // création normale
+                Integer idAdherant     = Integer.valueOf(request.getParameter("idAdherant"));
+                Integer idExemplaire   = Integer.valueOf(request.getParameter("idExemplaire"));
+                LocalDate datePret     = LocalDate.parse(request.getParameter("datePret"));
                 LocalDate dateRetourEstime = LocalDate.parse(request.getParameter("dateRetourEstime"));
-
                 pretService.create(idAdherant, idExemplaire, datePret, dateRetourEstime);
             }
         } catch (Exception ex) {
-            // Stocker le message d'erreur dans la session
             HttpSession session = request.getSession();
             session.setAttribute("errorMessage", ex.getMessage());
-
-            // Rediriger vers la page de prêt en conservant les paramètres
-            String referer = request.getHeader("Referer");
-            response.sendRedirect(referer != null ? referer : request.getContextPath() + "/pret");
+            response.sendRedirect(request.getHeader("Referer"));
             return;
         }
-
-        // Réinitialiser les messages d'erreur après une opération réussie
+    
         request.getSession().removeAttribute("errorMessage");
         response.sendRedirect(request.getContextPath() + "/pret");
     }
