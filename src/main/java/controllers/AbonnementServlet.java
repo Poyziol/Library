@@ -93,7 +93,7 @@ public class AbonnementServlet extends HttpServlet
             else if("renew".equals(action)) 
             {
                 Abonnement abo = aboService.getById(idAbo);
-                abo.setDateFin(abo.getDateFin().plusYears(1));
+                abo.setDateFin(abo.getDateFin().plusMonths(1));
                 aboService.save(abo);
             }
             

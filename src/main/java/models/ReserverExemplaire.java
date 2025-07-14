@@ -1,59 +1,76 @@
 package models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-@Table(name = "reserver_exemplaire")       
-public class ReserverExemplaire
-{
+@Table(name = "reserver_exemplaire")
+@IdClass(ReserverExemplaire.ReserverExemplaireId.class) // Clé composite
+public class ReserverExemplaire {
+    
+    // Clé composite (partie 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_reserver_exemplaire")  
-    private Integer idReserverExemplaire;
+    @ManyToOne
+    @JoinColumn(name = "id_exemplaire")
+    private Exemplaire exemplaire;
+    
+    // Clé composite (partie 2)
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "id_reservation")
+    private Reservation reservation;
 
-    @Column(name = "id_exemplaire")  
-    private Integer idExemplaire;
+    // ====================== Classe interne pour la clé composite ======================== //
+    public static class ReserverExemplaireId implements Serializable {
+        private Exemplaire exemplaire;
+        private Reservation reservation;
 
-    @Column(name = "id_reservation")  
-    private Integer idReservation;
+        // Constructeurs, equals(), hashCode()...
+        public ReserverExemplaireId() {}
+
+        public ReserverExemplaireId(Exemplaire exemplaire, Reservation reservation) {
+            this.exemplaire = exemplaire;
+            this.reservation = reservation;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof ReserverExemplaireId)) return false;
+            ReserverExemplaireId that = (ReserverExemplaireId) o;
+            return exemplaire.equals(that.exemplaire) && 
+                   reservation.equals(that.reservation);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(exemplaire, reservation);
+        }
+    }
 
     // ====================== Getters / Setters ======================== //
 
     public ReserverExemplaire() {}
 
-    public ReserverExemplaire(Integer idExemplaire, Integer idReservation) {
-        this.idExemplaire = idExemplaire;
-        this.idReservation = idReservation;
+    public ReserverExemplaire(Exemplaire exemplaire, Reservation reservation) {
+        this.exemplaire = exemplaire;
+        this.reservation = reservation;
     }
 
-    public Integer getIdExemplaire() {
-        return idExemplaire;
+    public Exemplaire getExemplaire() {
+        return exemplaire;
     }
 
-    public void setIdExemplaire(Integer idExemplaire) {
-        this.idExemplaire = idExemplaire;
+    public void setExemplaire(Exemplaire exemplaire) {
+        this.exemplaire = exemplaire;
     }
 
-    public Integer getIdReservation() {
-        return idReservation;
+    public Reservation getReservation() {
+        return reservation;
     }
 
-    public void setIdReservation(Integer idReservation) {
-        this.idReservation = idReservation;
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
-
-    public Integer getIdReserverExemplaire() {
-        return idReserverExemplaire;
-    }
-
-    public void setIdReserverExemplaire(Integer idReserverExemplaire) {
-        this.idReserverExemplaire = idReserverExemplaire;
-    }
-
-    
 }

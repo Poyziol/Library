@@ -14,7 +14,7 @@
   <context:annotation-config/>
 
   <!-- scan des packages -->
-  <context:component-scan base-package="models,controllers,services,repositories"/>
+  <context:component-scan base-package="models,controllers,services,repositories,DTO"/>
 
   <!-- Spring Data JPA -->
   <jpa:repositories base-package="repositories"/>

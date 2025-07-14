@@ -5,7 +5,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>${empty penalite ? 'Nouvelle Pénalité' : 'Modifier Pénalité'}</title>
+  <title>Gestion des Pénalités</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
@@ -24,14 +24,14 @@
         <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-book"></i> Livres</a></li>
         <c:if test="${typeUsers == 'Client'}">
           <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Abonnement</a></li>
-          <li><a href="#"><i class="fa fa-calendar-plus"></i> Réserver</a></li>
+          <li><a href="${pageContext.request.contextPath}/client"><i class="fa fa-calendar-plus"></i> Réserver</a></li>
           <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
         </c:if>
         <c:if test="${typeUsers == 'Bibliothecaire'}">
-          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Abonnements</a></li>
-          <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêts</a></li>
-          <li><a href="${pageContext.request.contextPath}/penalite"><i class="fa fa-gavel"></i> Pénalités</a></li>
-          <li><a href="#"><i class="fa fa-calendar-check"></i> Réservations</a></li>
+          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Gestion Abonnements</a></li>
+          <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
+          <li><a href="${pageContext.request.contextPath}/penalite" class="active"><i class="fa fa-gavel"></i> Pénalité</a></li>
+          <li><a href="${pageContext.request.contextPath}/reservation-biblio"><i class="fa fa-calendar-check"></i> Réservation</a></li>
           <li><a href="#"><i class="fa fa-clock"></i> Prolongements</a></li>
           <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
         </c:if>
@@ -44,35 +44,56 @@
     <!-- Main content -->
     <div class="main-content">
       <header>
-        <h2>${empty penalite ? 'Créer une nouvelle pénalité' : 'Modifier la pénalité'}</h2>
+        <h2>${empty penalite ? 'Nouvelle Pénalité' : 'Modifier Pénalité'}</h2>
       </header>
       
       <section class="content">
         <div class="dashboard-panel">
           <!-- Messages d'alerte -->
+          <c:if test="${not empty sessionScope.successMessage}">
+            <div class="alert alert-success">
+              <i class="fa fa-check-circle"></i> ${sessionScope.successMessage}
+              <c:remove var="successMessage" scope="session"/>
+            </div>
+          </c:if>
+          
           <c:if test="${not empty sessionScope.errorMessage}">
             <div class="alert alert-danger">
-              ${sessionScope.errorMessage}
+              <i class="fa fa-exclamation-circle"></i> ${sessionScope.errorMessage}
               <c:remove var="errorMessage" scope="session"/>
             </div>
           </c:if>
           
-          <form method="post" action="${pageContext.request.contextPath}/penalite" class="form-container">
+          <form method="post" action="${pageContext.request.contextPath}/penalite" class="filter-bar">
+            <input type="hidden" name="action" value="${empty penalite ? 'create' : 'update'}">
             <c:if test="${not empty penalite}">
               <input type="hidden" name="id" value="${penalite.idPenalite}">
-              <input type="hidden" name="action" value="update">
-            </c:if>
-            <c:if test="${empty penalite}">
-              <input type="hidden" name="action" value="create">
             </c:if>
             
             <div class="form-group">
-              <label for="idAdherant">Adhérent</label>
-              <select id="idAdherant" name="idAdherant" required>
-                <option value="">— Choisir un adhérent —</option>
-                <c:forEach var="a" items="${adherants}">
+              <label>Motif:</label>
+              <input type="text" name="motif" value="${penalite.motif}" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Date début:</label>
+              <input type="date" name="dateDebut" 
+                     value="${empty penalite ? today : penalite.dateDebutPenalite}" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Durée (jours):</label>
+              <input type="number" name="duree" 
+                     value="${penalite.duree}" min="1" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Adhérent:</label>
+              <select name="idAdherant" required>
+                <option value="">-- Sélectionner --</option>
+                <c:forEach items="${adherants}" var="a">
                   <option value="${a.idAdherant}" 
-                    ${not empty penalite && penalite.adherant.idAdherant == a.idAdherant ? 'selected' : ''}>
+                    ${penalite.adherant.idAdherant == a.idAdherant ? 'selected' : ''}>
                     ${a.nom} ${a.prenom}
                   </option>
                 </c:forEach>
@@ -80,36 +101,30 @@
             </div>
             
             <div class="form-group">
-              <label for="motif">Motif</label>
-              <textarea id="motif" name="motif" rows="3" required>${penalite.motif}</textarea>
-            </div>
-            
-            <div class="form-group">
-              <label for="dateDebut">Date début</label>
-              <input type="date" id="dateDebut" name="dateDebut" 
-                     value="${not empty penalite ? penalite.dateDebutPenalite : today}" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="duree">Durée (jours)</label>
-              <input type="number" id="duree" name="duree" min="1" 
-                     value="${not empty penalite ? penalite.duree : 7}" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="estReglee">Statut</label>
-              <select id="estReglee" name="estReglee" required>
-                <option value="false" ${empty penalite || !penalite.estReglee ? 'selected' : ''}>Non réglée</option>
-                <option value="true" ${not empty penalite && penalite.estReglee ? 'selected' : ''}>Réglée</option>
+              <label>Prêt associé:</label>
+              <select name="idPret" required>
+                <option value="">-- Sélectionner --</option>
+                <c:forEach items="${prets}" var="p">
+                  <option value="${p.idPret}" 
+                    ${penalite.pret.idPret == p.idPret ? 'selected' : ''}>
+                    Pret #${p.idPret} - ${p.adherant.nom}
+                  </option>
+                </c:forEach>
               </select>
+            </div>
+            
+            <div class="form-group">
+              <label>Réglée:</label>
+              <input type="checkbox" name="estReglee" 
+                     ${penalite.estReglee ? 'checked' : ''}>
             </div>
             
             <div class="form-actions">
               <button type="submit" class="btn-login">
-                ${empty penalite ? 'Créer' : 'Mettre à jour'}
+                <i class="fa fa-save"></i> Enregistrer
               </button>
               <a href="${pageContext.request.contextPath}/penalite" class="btn-cancel">
-                Annuler
+                <i class="fa fa-times"></i> Annuler
               </a>
             </div>
           </form>
@@ -117,5 +132,12 @@
       </section>
     </div>
   </div>
+  
+  <script>
+    // Ajouter le script de bascule du sidebar si nécessaire
+    document.querySelector('.toggle-btn').addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('collapsed');
+    });
+  </script>
 </body>
 </html>

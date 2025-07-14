@@ -28,11 +28,11 @@
           <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
         </c:if>
         <c:if test="${typeUsers == 'Bibliothecaire'}">
-          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Abonnements</a></li>
-          <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêts</a></li>
-          <li><a href="${pageContext.request.contextPath}/penalite"><i> Penalites</i></a></li>
-          <li><a href="#"><i class="fa fa-calendar-check"></i> Réservations</a></li>
-          <li><a href="#"><i class="fa fa-clock"></i> Prolongements</a></li>
+          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Gestion Abonnements</a></li>
+          <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
+          <li><a href="${pageContext.request.contextPath}/penalite"><i class="fa fa-gavel"></i>Penalites</a></li>
+          <li><a href="${pageContext.request.contextPath}/reservation-biblio"><i class="fa fa-calendar-check"></i> Réservation</a></li>
+          <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
           <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
         </c:if>
       </ul>
@@ -159,6 +159,46 @@
                 </c:otherwise>
               </c:choose>
             </div>
+
+            <!-- Nouvelle section : Historique des livres rendus -->
+          <c:if test="${typeUsers == 'Bibliothecaire'}">
+            <div class="table-container" style="margin-top: 40px;">
+              <h3>Historique des livres rendus</h3>
+              
+              <c:choose>
+                <c:when test="${empty historique}">
+                  <div class="no-data-container">
+                    <i class="fa fa-info-circle"></i>
+                    <p>Aucun livre rendu dans la période sélectionnée.</p>
+                  </div>
+                </c:when>
+                <c:otherwise>
+                  <table class="book-table">
+                    <thead>
+                      <tr>
+                        <th>Date retour</th>
+                        <th>Adhérent</th>
+                        <th>Livre</th>
+                        <th>Exemplaire</th>
+                        <th>Durée du prêt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <c:forEach var="h" items="${historique}">
+                        <tr>
+                          <td>${h.dateRetourReel}</td>
+                          <td>${h.adherant.nom} ${h.adherant.prenom}</td>
+                          <td>${h.exemplaire.livre.titre}</td>
+                          <td>#${h.exemplaire.idExemplaire}</td>
+                          <td>${h.dureePret} jours</td>
+                        </tr>
+                      </c:forEach>
+                    </tbody>
+                  </table>
+                </c:otherwise>
+              </c:choose>
+            </div>
+          </c:if>
           </c:if>
         </div>
       </section>

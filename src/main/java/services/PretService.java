@@ -2,8 +2,10 @@ package services;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,28 +13,35 @@ import models.Adherant;
 import models.Exemplaire;
 import models.Livre;
 import models.Pret;
+import models.Status;
+import models.TypePret;
 import repositories.PretRepository;
+import repositories.TypePretRepository;
 
 @Service
 @Transactional
 public class PretService 
 {
+    @Autowired
     private final PretRepository repo;
     private final ExemplaireService exemplaireService;
     private final AdherantService adherantService;
     private final PenaliteService penaliteService;
     private final AbonnementService abonnementService;
+    private final TypePretRepository typePretRepository;
 
     public PretService(PretRepository repo, 
                       ExemplaireService exemplaireService,
                       AdherantService adherantService,
                       PenaliteService penaliteService,
-                      AbonnementService abonnementService) {
+                      AbonnementService abonnementService,
+                      TypePretRepository typePretRepository) {
         this.repo = repo;
         this.exemplaireService = exemplaireService;
         this.adherantService = adherantService;
         this.penaliteService = penaliteService;
         this.abonnementService = abonnementService;
+        this.typePretRepository = typePretRepository;
     }
 
     // Liste tous les prêts
@@ -65,6 +74,31 @@ public class PretService
         exemplaireService.save(e);
 
         repo.deleteById(id);
+    }
+
+    public List<Pret> getHistoriqueRetours(String dateMin, String dateMax) {
+        LocalDate min = null;
+        LocalDate max = null;
+        
+        try {
+            if(dateMin != null && !dateMin.isEmpty()) {
+                min = LocalDate.parse(dateMin);
+            }
+            if(dateMax != null && !dateMax.isEmpty()) {
+                max = LocalDate.parse(dateMax);
+            }
+        } catch (DateTimeParseException e) {
+            // Gérer l'erreur si nécessaire
+        }
+        
+        return repo.findHistoriqueRetours(min, max);
+    }
+
+    public int getQuotaActuel(int idAdherant)
+    {
+        int quotaActuel = repo.countCurrentPretsByAdherant(idAdherant);
+
+        return quotaActuel;
     }
 
     public void create(Integer idAdherant, Integer idExemplaire, LocalDate datePret, LocalDate dateRetourEstime) {
@@ -100,18 +134,22 @@ public class PretService
             throw new RuntimeException("L'adhérent est trop jeune pour ce livre");
         }
 
+        TypePret type_pret = typePretRepository.findByLibelle("normal")
+            .orElseThrow(() -> new IllegalStateException("Type de pret normal non trouvé"));
+
         // Création du prêt
         Pret p = new Pret();
+        Status stat = new Status(1);
         p.setDatePret(datePret);
         p.setDateRetourEstime(dateRetourEstime);
-        p.setQuotaActuel(quotaActuel + 1);
+        p.setQuotaActuel(quotaActuel - 1);
 
         e.setDisponible(false);
         exemplaireService.save(e);
         p.setExemplaire(e);
-
+        p.setTypePret(type_pret);
         p.setAdherant(a);
-        p.setIdStatus(1); // Statut "en cours"
+        p.setStatus(stat); 
 
         repo.save(p);
     }

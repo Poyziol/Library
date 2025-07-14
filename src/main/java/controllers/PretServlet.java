@@ -15,6 +15,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import services.AdherantService;
 import services.ExemplaireService;
 import services.PretService;
+import services.TypePretService;
 
 @WebServlet("/pret")
 public class PretServlet extends HttpServlet 
@@ -31,14 +32,21 @@ public class PretServlet extends HttpServlet
         AdherantService adherantService = ctx.getBean(AdherantService.class);
         ExemplaireService exemplaireService = ctx.getBean(ExemplaireService.class);
         PretService pretService = ctx.getBean(PretService.class);
+        TypePretService typePretService = ctx.getBean(TypePretService.class);
 
         List<Adherant> adherants = adherantService.listAll();
         List<Exemplaire> exemplairesDisponibles = exemplaireService.listDisponibles();
         List<Pret> prets = pretService.listAll();
 
+        String dateMin = request.getParameter("dateMin");
+        String dateMax = request.getParameter("dateMax");
+
         request.setAttribute("adherants", adherants);
         request.setAttribute("exemplairesDisponibles", exemplairesDisponibles);
         request.setAttribute("prets", prets);
+        List<Pret> historique = pretService.getHistoriqueRetours(dateMin, dateMax);
+        request.setAttribute("historique", historique);
+        request.setAttribute("typesPret", typePretService.listAll());
 
         request.setAttribute("today", LocalDate.now().toString());
 

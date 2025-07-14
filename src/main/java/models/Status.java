@@ -25,6 +25,12 @@ public class Status
 
     
 
+    public Status(Integer idStatus) {
+        this.idStatus = idStatus;
+    }
+
+
+
     public Status(String libelle) {
         this.libelle = libelle;
     }
