@@ -26,8 +26,9 @@ public class Pret {
     @Column(name = "quota_actuel", nullable = false)
     private Integer quotaActuel;
 
-    @Column(name = "id_type_pret", nullable = false)
-    private Integer idTypePret;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_type_pret", nullable = false)
+    private TypePret typePret;
 
     // Association Adherant
     @ManyToOne(fetch = FetchType.EAGER)
@@ -43,8 +44,10 @@ public class Pret {
     )
     private Exemplaire exemplaire;
 
-    @Column(name = "id_status", nullable = false)
-    private Integer idStatus;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_status", nullable = false)
+    private Status status;
+
 
     @Transient
     public long getDureePret() {
@@ -73,8 +76,8 @@ public class Pret {
     public Integer getQuotaActuel() { return quotaActuel; }
     public void setQuotaActuel(Integer quotaActuel) { this.quotaActuel = quotaActuel; }
 
-    public Integer getIdTypePret() { return idTypePret; }
-    public void setIdTypePret(Integer idTypePret) { this.idTypePret = idTypePret; }
+    public TypePret getTypePret() { return typePret; }
+    public void setTypePret(TypePret typePret) { this.typePret = typePret; }
 
     public Adherant getAdherant() { return adherant; }
     public void setAdherant(Adherant adherant) { this.adherant = adherant; }
@@ -82,6 +85,14 @@ public class Pret {
     public Exemplaire getExemplaire() { return exemplaire; }
     public void setExemplaire(Exemplaire exemplaire) { this.exemplaire = exemplaire; }
 
-    public Integer getIdStatus() { return idStatus; }
-    public void setIdStatus(Integer idStatus) { this.idStatus = idStatus; }
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    
+
 }

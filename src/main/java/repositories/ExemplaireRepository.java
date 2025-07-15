@@ -17,4 +17,9 @@ public interface ExemplaireRepository extends JpaRepository<Exemplaire, Integer>
     List<Object[]> countDisponiblesByLivreIds(@Param("ids") List<Integer> livreIds);
     
     List<Exemplaire> findByDisponibleTrue();
+
+    @Query("SELECT e FROM Exemplaire e " +
+           "WHERE e.disponible = true " +
+           "AND NOT EXISTS (SELECT 1 FROM ReserverExemplaire re WHERE re.exemplaire = e)")
+    List<Exemplaire> getExemplairesDisponibles();
 }

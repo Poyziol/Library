@@ -75,10 +75,9 @@ public class PretServlet extends HttpServlet
                 Integer idAdherant = Integer.valueOf(request.getParameter("idAdherant"));
                 Integer idExemplaire = Integer.valueOf(request.getParameter("idExemplaire"));
                 LocalDate datePret = LocalDate.parse(request.getParameter("datePret"));
-                Integer idTypePret = Integer.valueOf(request.getParameter("idTypePret"));
                 LocalDate dateRetourEstime = LocalDate.parse(request.getParameter("dateRetourEstime"));
 
-                pretService.create(idAdherant, idExemplaire, datePret, dateRetourEstime, idTypePret);
+                pretService.create(idAdherant, idExemplaire, datePret, dateRetourEstime);
             }
         } catch (Exception ex) {
             // Stocker le message d'erreur dans la session

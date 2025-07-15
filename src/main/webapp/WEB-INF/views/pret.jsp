@@ -31,7 +31,7 @@
           <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Gestion Abonnements</a></li>
           <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
           <li><a href="${pageContext.request.contextPath}/penalite"><i class="fa fa-gavel"></i>Penalites</a></li>
-          <li><a href="#"><i class="fa fa-calendar-check"></i> Réservation</a></li>
+          <li><a href="${pageContext.request.contextPath}/reservation-biblio"><i class="fa fa-calendar-check"></i> Réservation</a></li>
           <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
           <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
         </c:if>
@@ -84,14 +84,6 @@
                     </c:forEach>
                   </select>
                 </div>
-
-                <label for="typePret">Type de prêt</label>
-                <select id="typePret" name="idTypePret" required>
-                    <option value="">— Choisir —</option>
-                    <c:forEach var="tp" items="${typesPret}">
-                        <option value="${tp.idTypePret}">${tp.libelle}</option>
-                    </c:forEach>
-                </select>
 
                 <div class="form-group">
                   <label for="datePret">Date du prêt</label>

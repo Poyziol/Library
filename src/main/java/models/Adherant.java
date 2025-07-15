@@ -53,6 +53,14 @@ public class Adherant
 
     public Adherant() {}
 
+    
+
+    public Adherant(Integer idAdherant) {
+        this.idAdherant = idAdherant;
+    }
+
+
+
     public Adherant(String nom, String prenom, LocalDate dateDeNaissance, Integer telephone, Integer limiteQuota, Integer idReservation, Integer idInscription, Integer idTypeAdherant) {
         this.nom = nom;
         this.prenom = prenom;

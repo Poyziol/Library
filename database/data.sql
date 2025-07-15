@@ -11,15 +11,14 @@ INSERT INTO type_users(libelle) VALUES
 
 -- 3) Statuts de prêt / réservation
 INSERT INTO status(libelle) VALUES
-  ('en_cours'),
-  ('retourne'),
-  ('reserve');
+  ('EN_ATTENTE'),
+  ('EN_COURS'),
+  ('CONFIRMEE');
 
 -- 4) Types de prêt
 INSERT INTO type_pret(libelle) VALUES
-  ('lecture_sur_place'),
-  ('emporter'),
-  ('reserver');
+  ('normal'),
+  ('reservation');
 
 -- 5) États d un exemplaire
 INSERT INTO etat(id_etat, libelle) VALUES

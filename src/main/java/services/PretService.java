@@ -13,7 +13,10 @@ import models.Adherant;
 import models.Exemplaire;
 import models.Livre;
 import models.Pret;
+import models.Status;
+import models.TypePret;
 import repositories.PretRepository;
+import repositories.TypePretRepository;
 
 @Service
 @Transactional
@@ -25,17 +28,20 @@ public class PretService
     private final AdherantService adherantService;
     private final PenaliteService penaliteService;
     private final AbonnementService abonnementService;
+    private final TypePretRepository typePretRepository;
 
     public PretService(PretRepository repo, 
                       ExemplaireService exemplaireService,
                       AdherantService adherantService,
                       PenaliteService penaliteService,
-                      AbonnementService abonnementService) {
+                      AbonnementService abonnementService,
+                      TypePretRepository typePretRepository) {
         this.repo = repo;
         this.exemplaireService = exemplaireService;
         this.adherantService = adherantService;
         this.penaliteService = penaliteService;
         this.abonnementService = abonnementService;
+        this.typePretRepository = typePretRepository;
     }
 
     // Liste tous les prêts
@@ -88,7 +94,14 @@ public class PretService
         return repo.findHistoriqueRetours(min, max);
     }
 
-    public void create(Integer idAdherant, Integer idExemplaire, LocalDate datePret, LocalDate dateRetourEstime, Integer idTypePret) {
+    public int getQuotaActuel(int idAdherant)
+    {
+        int quotaActuel = repo.countCurrentPretsByAdherant(idAdherant);
+
+        return quotaActuel;
+    }
+
+    public void create(Integer idAdherant, Integer idExemplaire, LocalDate datePret, LocalDate dateRetourEstime) {
         // Règle 1: Vérifier la disponibilité de l'exemplaire
         Exemplaire e = exemplaireService.get(idExemplaire);
         if (!e.getDisponible()) 
@@ -121,19 +134,22 @@ public class PretService
             throw new RuntimeException("L'adhérent est trop jeune pour ce livre");
         }
 
+        TypePret type_pret = typePretRepository.findByLibelle("normal")
+            .orElseThrow(() -> new IllegalStateException("Type de pret normal non trouvé"));
+
         // Création du prêt
         Pret p = new Pret();
+        Status stat = new Status(1);
         p.setDatePret(datePret);
         p.setDateRetourEstime(dateRetourEstime);
         p.setQuotaActuel(quotaActuel - 1);
 
         e.setDisponible(false);
         exemplaireService.save(e);
-        p.setIdTypePret(idTypePret);
         p.setExemplaire(e);
-        p.setIdTypePret(1);
+        p.setTypePret(type_pret);
         p.setAdherant(a);
-        p.setIdStatus(1); 
+        p.setStatus(stat); 
 
         repo.save(p);
     }

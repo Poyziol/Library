@@ -11,7 +11,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface PretRepository extends JpaRepository<Pret, Integer> 
 {
-    @Query("SELECT COUNT(p) FROM Pret p WHERE p.adherant.idAdherant = :idAdherant AND p.idStatus = 1")
+    @Query("SELECT COUNT(p) FROM Pret p " +
+           "WHERE p.adherant.idAdherant = :idAdherant " +
+           "AND p.status.idStatus = 1") 
     int countCurrentPretsByAdherant(@Param("idAdherant") Integer idAdherant);
 
     @Query("SELECT p FROM Pret p WHERE p.dateRetourReel IS NOT NULL " +

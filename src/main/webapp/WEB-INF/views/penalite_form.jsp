@@ -13,7 +13,32 @@
   <div class="wrapper">
     <!-- Sidebar -->
     <nav class="sidebar">
-      <!-- ... (identique à penalite.jsp) ... -->
+      <div class="sidebar-header">
+        <c:choose>
+          <c:when test="${typeUsers == 'Client'}"><h3>Client</h3></c:when>
+          <c:when test="${typeUsers == 'Bibliothecaire'}"><h3>Bibliothécaire</h3></c:when>
+        </c:choose>
+        <button class="toggle-btn"><i class="fa fa-bars"></i></button>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-book"></i> Livres</a></li>
+        <c:if test="${typeUsers == 'Client'}">
+          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Abonnement</a></li>
+          <li><a href="${pageContext.request.contextPath}/client"><i class="fa fa-calendar-plus"></i> Réserver</a></li>
+          <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
+        </c:if>
+        <c:if test="${typeUsers == 'Bibliothecaire'}">
+          <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Gestion Abonnements</a></li>
+          <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
+          <li><a href="${pageContext.request.contextPath}/penalite" class="active"><i class="fa fa-gavel"></i> Pénalité</a></li>
+          <li><a href="${pageContext.request.contextPath}/reservation-biblio"><i class="fa fa-calendar-check"></i> Réservation</a></li>
+          <li><a href="#"><i class="fa fa-clock"></i> Prolongements</a></li>
+          <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
+        </c:if>
+      </ul>
+      <ul class="sidebar-footer">
+        <li><a href="${pageContext.request.contextPath}/login"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
+      </ul>
     </nav>
 
     <!-- Main content -->
@@ -39,7 +64,7 @@
             </div>
           </c:if>
           
-          <form method="post" action="${pageContext.request.contextPath}/penalite">
+          <form method="post" action="${pageContext.request.contextPath}/penalite" class="filter-bar">
             <input type="hidden" name="action" value="${empty penalite ? 'create' : 'update'}">
             <c:if test="${not empty penalite}">
               <input type="hidden" name="id" value="${penalite.idPenalite}">
@@ -94,12 +119,25 @@
                      ${penalite.estReglee ? 'checked' : ''}>
             </div>
             
-            <button type="submit" class="btn-login">Enregistrer</button>
-            <a href="${pageContext.request.contextPath}/penalite" class="btn-cancel">Annuler</a>
+            <div class="form-actions">
+              <button type="submit" class="btn-login">
+                <i class="fa fa-save"></i> Enregistrer
+              </button>
+              <a href="${pageContext.request.contextPath}/penalite" class="btn-cancel">
+                <i class="fa fa-times"></i> Annuler
+              </a>
+            </div>
           </form>
         </div>
       </section>
     </div>
   </div>
+  
+  <script>
+    // Ajouter le script de bascule du sidebar si nécessaire
+    document.querySelector('.toggle-btn').addEventListener('click', function() {
+      document.querySelector('.sidebar').classList.toggle('collapsed');
+    });
+  </script>
 </body>
 </html>

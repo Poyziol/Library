@@ -22,11 +22,6 @@ public class ExemplaireService {
         return repo.findAll();
     }
 
-    // *** Nouvel ajout : lister uniquement les disponibles ***
-    public List<Exemplaire> listDisponibles() {
-        return repo.findByDisponibleTrue();
-    }
-
     public Exemplaire get(Integer id) {
         return repo.findById(id)
                    .orElseThrow(() -> new RuntimeException("Exemplaire introuvable : " + id));
@@ -45,5 +40,13 @@ public class ExemplaireService {
         return repo.findById(id)
                   .map(Exemplaire::getDisponible)
                   .orElse(false);
+    }
+
+    public List<Exemplaire> listDisponibles() {
+        return repo.getExemplairesDisponibles();
+    }
+
+    public Exemplaire getReferenceById(Integer id) {
+        return repo.getReferenceById(id);
     }
 }
