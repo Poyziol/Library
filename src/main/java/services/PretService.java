@@ -71,13 +71,13 @@ public class PretService
         return prets;
     }
 
-    public void returnBook(Integer idPret) {
+    public void returnBook(Integer idPret, LocalDate dateRetour) {
         Pret p = get(idPret);                       // récupère le prêt
         Adherant a = p.getAdherant();
         Exemplaire e = p.getExemplaire();
 
         // 1) positionner date de retour réel
-        p.setDateRetourReel(LocalDate.now());
+        p.setDateRetourReel(dateRetour);
 
         // 2) remettre l'exemplaire disponible
         e.setDisponible(true);
