@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+resources/static/fontawesome-free-6.7.2-web/
 
 ### STS ###
 .apt_generated
