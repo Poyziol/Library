@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <title>Demande de prolongement</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/fontawesome-free-6.7.2-web/css/all.min.css">
   <style>
     .btn {
       padding: 8px 12px;
