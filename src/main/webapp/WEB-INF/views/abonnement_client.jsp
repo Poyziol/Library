@@ -23,7 +23,7 @@
         <li><a href="<%= request.getContextPath() %>/home"><i class="fa fa-book"></i> Livres</a></li>
         <li><a href="#"><i class="fa fa-id-card"></i> Abonnement</a></li>
         <li><a href="${pageContext.request.contextPath}/reservation-client"><i class="fa fa-calendar-plus"></i> Réserver</a></li>
-        <li><a href="<%= request.getContextPath() %>/prolongement"><i class="fa fa-clock"></i> Prolongement</a></li>
+        <li><a href="${pageContext.request.contextPath}/prolongement-client"><i class="fa fa-clock"></i> Prolongement</a></li>
       </ul>
       <ul class="sidebar-footer">
         <li><a href="<%= request.getContextPath() %>/login"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>

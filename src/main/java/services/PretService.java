@@ -60,6 +60,10 @@ public class PretService
         return repo.save(obj);
     }
 
+    public List<Pret> getPretsEnCoursByAdherant(Integer adherantId) {
+        return repo.findByAdherantIdAdherantAndStatus_Libelle(adherantId, "EN_COURS");
+    }
+
     public void delete(Integer id) {
         Pret p = get(id);
         

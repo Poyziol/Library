@@ -4,9 +4,12 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,21 +28,26 @@ public class Prolongement
     private LocalDate nouvelleDateRetour;
 
     @Column(name = "nbr_prolongement_actuel")  
-    private LocalDate nbrProlongementActuel;
+    private Integer nbrProlongementActuel;
 
-    @Column(name = "id_pret")  
-    private Integer idPret;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pret")  
+    private Pret pret;
+
+    @ManyToOne
+    @JoinColumn(name = "id_status", nullable = false)
+    private Status status;
 
     // ====================== Getters / Setters ======================== //
 
     public Prolongement() {}
 
-    public Prolongement(LocalDate dateProlongement, LocalDate nouvelleDateRetour, LocalDate nbrProlongementActuel,
-            Integer idPret) {
+    public Prolongement(LocalDate dateProlongement, LocalDate nouvelleDateRetour, Integer nbrProlongementActuel,
+            Pret pret) {
         this.dateProlongement = dateProlongement;
         this.nouvelleDateRetour = nouvelleDateRetour;
         this.nbrProlongementActuel = nbrProlongementActuel;
-        this.idPret = idPret;
+        this.pret = pret;
     }
 
     public Integer getIdProlongement() {
@@ -66,21 +74,28 @@ public class Prolongement
         this.nouvelleDateRetour = nouvelleDateRetour;
     }
 
-    public LocalDate getNbrProlongementActuel() {
+    public Integer getNbrProlongementActuel() {
         return nbrProlongementActuel;
     }
 
-    public void setNbrProlongementActuel(LocalDate nbrProlongementActuel) {
+    public void setNbrProlongementActuel(int nbrProlongementActuel) {
         this.nbrProlongementActuel = nbrProlongementActuel;
     }
 
-    public Integer getIdPret() {
-        return idPret;
+    public Pret getPret() {
+        return pret;
     }
 
-    public void setIdPret(Integer idPret) {
-        this.idPret = idPret;
+    public void setPret(Pret pret) {
+        this.pret = pret;
     }
 
-    
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 }

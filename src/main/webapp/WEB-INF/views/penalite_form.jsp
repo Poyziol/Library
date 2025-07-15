@@ -25,14 +25,14 @@
         <c:if test="${typeUsers == 'Client'}">
           <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Abonnement</a></li>
           <li><a href="${pageContext.request.contextPath}/client"><i class="fa fa-calendar-plus"></i> Réserver</a></li>
-          <li><a href="#"><i class="fa fa-clock"></i> Prolongement</a></li>
+          <li><a href="${pageContext.request.contextPath}/prolongement-client"><i class="fa fa-clock"></i> Prolongement</a></li>
         </c:if>
         <c:if test="${typeUsers == 'Bibliothecaire'}">
           <li><a href="${pageContext.request.contextPath}/abonnement"><i class="fa fa-id-card"></i> Gestion Abonnements</a></li>
           <li><a href="${pageContext.request.contextPath}/pret"><i class="fa fa-hand-holding"></i> Prêt</a></li>
           <li><a href="${pageContext.request.contextPath}/penalite" class="active"><i class="fa fa-gavel"></i> Pénalité</a></li>
           <li><a href="${pageContext.request.contextPath}/reservation-biblio"><i class="fa fa-calendar-check"></i> Réservation</a></li>
-          <li><a href="#"><i class="fa fa-clock"></i> Prolongements</a></li>
+          <li><a href="${pageContext.request.contextPath}/prolongement-biblio"><i class="fa fa-clock"></i> Prolongements</a></li>
           <li><a href="#"><i class="fa fa-calendar-alt"></i> Calendrier</a></li>
         </c:if>
       </ul>

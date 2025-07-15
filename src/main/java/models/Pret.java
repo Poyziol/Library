@@ -2,6 +2,9 @@ package models;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -57,6 +60,9 @@ public class Pret {
         return ChronoUnit.DAYS.between(datePret, dateRetourReel);
     }
 
+    @OneToMany(mappedBy = "pret", cascade = CascadeType.ALL)
+    private List<Prolongement> prolongements = new ArrayList<>();
+
     public Pret() {}
 
     // Getters et Setters
@@ -91,6 +97,14 @@ public class Pret {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Prolongement> getProlongements() {
+        return prolongements;
+    }
+
+    public void setProlongements(List<Prolongement> prolongements) {
+        this.prolongements = prolongements;
     }
 
     
