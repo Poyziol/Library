@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <c:set var="typeUsers" value="${sessionScope.type}" />
 <!DOCTYPE html>
 <html lang="fr">
@@ -109,7 +109,7 @@
                   <c:forEach var="pret" items="${prets}">
                     <tr>
                       <td>${pret.exemplaire.livre.titre}</td>
-                      <td><fmt:formatDate value="${pret.dateRetourEstime}" pattern="dd/MM/yyyy"/></td>
+                      <td>${pret.dateRetourEstime.format(DateTimeFormatter.ofPattern('dd/MM/yyyy'))}</td>
                       <td>
                         <form method="post" action="${pageContext.request.contextPath}/prolongement-client">
                           <input type="hidden" name="pretId" value="${pret.idPret}">

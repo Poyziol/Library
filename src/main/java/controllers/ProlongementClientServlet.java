@@ -22,14 +22,20 @@ public class ProlongementClientServlet extends HttpServlet {
         throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        Integer adherantId = (Integer) session.getAttribute("adherantId");
+        Integer adherantId = (Integer) session.getAttribute("idAdherant");
+        
+        // Ajoutez un log
+        System.out.println("ID Adhérent récupéré de la session: " + adherantId);
         
         WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         PretService pretService = ctx.getBean(PretService.class);
         
         List<Pret> prets = pretService.getPretsEnCoursByAdherant(adherantId);
-        request.setAttribute("prets", prets);
         
+        // Ajoutez un log
+        System.out.println("Prêts transmis à la JSP: " + prets.size());
+        
+        request.setAttribute("prets", prets);
         request.getRequestDispatcher("/WEB-INF/views/prolongementClient.jsp").forward(request, response);
     }
 

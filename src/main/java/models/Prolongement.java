@@ -35,7 +35,7 @@ public class Prolongement
     private Pret pret;
 
     @ManyToOne
-    @JoinColumn(name = "id_status", nullable = false)
+    @JoinColumn(name = "id_status", referencedColumnName = "id_status")
     private Status status;
 
     // ====================== Getters / Setters ======================== //

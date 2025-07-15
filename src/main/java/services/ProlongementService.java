@@ -58,7 +58,7 @@ public class ProlongementService {
             .orElseThrow();
         
         if(accepter) {
-            Status statusAccepte = statusRepository.findByLibelle("ACCEPTE")
+            Status statusAccepte = statusRepository.findByLibelle("CONFIRMEE")
                 .orElseThrow(() -> new IllegalStateException("Statut ACCEPTE non trouvé"));
             
             Pret pret = prolongement.getPret();
@@ -76,6 +76,6 @@ public class ProlongementService {
     }
 
     public List<Prolongement> getDemandesEnAttente() {
-        return repo.findByStatus_Libelle("EN_ATTENTE");
+        return repo.findDemandesEnAttenteWithAssociations();
     }
 }

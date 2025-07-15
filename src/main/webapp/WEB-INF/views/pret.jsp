@@ -132,7 +132,7 @@
                         <th>Exemplaire</th>
                         <th>Date prêt</th>
                         <th>Retour estimé</th>
-                        <th>Actions</th>
+                        <th>Actions: Rendre livre</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -148,7 +148,7 @@
                               <input type="hidden" name="action" value="delete"/>
                               <input type="hidden" name="idPret" value="${p.idPret}"/>
                               <button type="submit" class="btn-icon" title="Supprimer">
-                                <i class="fa fa-trash"></i>
+                                <i class="fa fa-undo"></i>
                               </button>
                             </form>
                           </td>
