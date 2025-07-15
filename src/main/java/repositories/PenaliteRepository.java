@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,6 +28,17 @@ public interface PenaliteRepository extends JpaRepository<Penalite, Integer> {
     // Trouver les pénalités non réglées
     List<Penalite> findByEstRegleeFalse();
     
-    // Solution alternative avec convention de nommage
-    // int countByAdherantIdAdherantAndEstRegleeFalse(Integer idAdherant);
+    /**
+     * Compte le nombre de pénalités non réglées pour un adhérent donné.
+     */
+    int countByAdherant_IdAdherantAndEstRegleeFalse(Integer idAdherant);
+
+    /**
+     * Retourne toutes les pénalités (réglées ou non) d’un adhérent.
+     */
+    List<Penalite> findByAdherant_IdAdherant(Integer idAdherant);
+
+    Optional<Penalite> findFirstByAdherant_IdAdherantAndEstRegleeFalseOrderByDateDebutPenaliteDesc(Integer idAdherant);
+
+
 }

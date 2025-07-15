@@ -1,6 +1,7 @@
 package services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class PenaliteService {
     }
 
     public boolean hasActivePenalites(Integer idAdherant) {
-        return repo.countActivePenalitesForAdherant(idAdherant) > 0;
+        return repo.countByAdherant_IdAdherantAndEstRegleeFalse(idAdherant) > 0;
     }
 
      // Liste toutes les pénalités non réglées
@@ -30,6 +31,10 @@ public class PenaliteService {
     // Liste toutes les pénalités
     public List<Penalite> listAll() {
         return repo.findAll();
+    }
+
+    public Optional<Penalite> findActiveByAdherant(Integer idAdherant) {
+        return repo.findFirstByAdherant_IdAdherantAndEstRegleeFalseOrderByDateDebutPenaliteDesc(idAdherant);
     }
 
     // Récupère une pénalité par son ID
