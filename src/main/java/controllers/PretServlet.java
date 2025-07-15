@@ -67,8 +67,7 @@ public class PretServlet extends HttpServlet
             if ("delete".equals(action)) {
                 // En fait : retourner le livre (pas supprimer)
                 Integer idPret = Integer.valueOf(request.getParameter("idPret"));
-                LocalDate dateRetour = LocalDate.parse(request.getParameter("dateRetour"));
-                pretService.returnBook(idPret, dateRetour);
+                pretService.returnBook(idPret);
             } else {
                 // création normale
                 Integer idAdherant     = Integer.valueOf(request.getParameter("idAdherant"));

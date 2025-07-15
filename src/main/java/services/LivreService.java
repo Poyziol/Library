@@ -10,7 +10,6 @@ import repositories.LivreRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,9 +71,5 @@ public class LivreService
     public List<Integer> listAgeMins() 
     {
         return repo.findDistinctAgeMins();
-    }
-
-    public Optional<Livre> findById(Integer id) {
-        return repo.findById(id);
     }
 }

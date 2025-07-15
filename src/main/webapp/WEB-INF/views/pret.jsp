@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <title>Gestion des prêts</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/fontawesome-free-6.7.2-web/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
   <div class="wrapper">
@@ -147,7 +147,6 @@
                             <form method="post" action="${pageContext.request.contextPath}/pret" class="action-form">
                               <input type="hidden" name="action" value="delete"/>
                               <input type="hidden" name="idPret" value="${p.idPret}"/>
-                              <input type="date" name="dateRetour">
                               <button type="submit" class="btn-icon" title="Supprimer">
                                 <i class="fa fa-undo"></i>
                               </button>
