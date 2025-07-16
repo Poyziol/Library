@@ -40,11 +40,7 @@ public class Pret {
 
     // Association Exemplaire via table preter_exemplaire
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "preter_exemplaire",
-        joinColumns = @JoinColumn(name = "id_pret"),
-        inverseJoinColumns = @JoinColumn(name = "id_exemplaire")
-    )
+    @JoinColumn(name="id_exemplaire", nullable=false)
     private Exemplaire exemplaire;
 
     @ManyToOne(fetch = FetchType.EAGER)

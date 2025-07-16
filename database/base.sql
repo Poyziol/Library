@@ -143,7 +143,7 @@ CREATE TABLE penalite(
    date_debut_penalite DATE NOT NULL,
    est_reglee BOOLEAN NOT NULL,
    duree INTEGER NOT NULL,
-   id_pret INTEGER NOT NULL UNIQUE,
+   id_pret INTEGER UNIQUE,
    id_adherant INTEGER NOT NULL UNIQUE,
    FOREIGN KEY (id_pret)     REFERENCES pret(id_pret)     ON DELETE CASCADE,
    FOREIGN KEY (id_adherant) REFERENCES adherant(id_adherant) ON DELETE CASCADE

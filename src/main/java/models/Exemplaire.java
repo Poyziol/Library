@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -24,6 +27,11 @@ public class Exemplaire {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_livre", nullable = false)
     private Livre livre;
+
+    @OneToMany(mappedBy="exemplaire")
+    private List<PreterExemplaire> preterExemplaires = new ArrayList<>();
+
+    
 
     public Exemplaire() {}
 

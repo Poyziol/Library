@@ -28,90 +28,69 @@ INSERT INTO etat(id_etat, libelle) VALUES
 
 -- 6) Livres
 INSERT INTO livre(resume, titre, auteur, annee_publication, age_min) VALUES
-  ('Un classique de la littérature française.', 'Le Comte de Monte-Cristo', 'Alexandre Dumas', '1844-08-28', 16),
-  ('Introduction aux bases de données relationnelles.', 'SGBD et SQL', 'Jean Dupont', '2019-02-15', 14),
-  ('Roman d aventures pour adolescents.', 'Voyage au centre de la Terre', 'Jules Verne', '1864-11-25', 12),
-  ('Un classique de la littérature française.', 'Le Comte de Monte-Cristo', 'Alexandre Dumas', '1844-01-01', 16),
-  ('Introduction aux bases de données relationnelles.', 'SGBD et SQL', 'Jean Dupont', '2019-01-01', 14),
-  ('Roman d aventures pour adolescents.', 'Voyage au centre de la Terre', 'Jules Verne', '1864-01-01', 12);
+  ('Un classique de la litterature française.', 'Les Miserables', 'Victor Hugo', '1844-08-28', 16),
+  ('Philosophie', 'L Etranger', 'Albert Camus', '2019-02-15', 14),
+  ('Jeunesse/Fantastique', 'J.K. Rowling', 'Jules Verne', '1864-11-25', 12);
 
 -- 7) Exemplaires (les premiers pour prêts/réservations existants)
 INSERT INTO exemplaire(disponible, id_etat, id_livre) VALUES
   (TRUE,  TRUE,  1),
+  (TRUE,  TRUE,  1),
+  (TRUE,  TRUE,  1),
   (TRUE,  TRUE,  2),
-  (FALSE, TRUE,  3);
-
--- 7 bis) Nouveaux exemplaires disponibles pour futures actions
-INSERT INTO exemplaire(disponible, id_etat, id_livre) VALUES
-  (FALSE, TRUE, 1),
-  (FALSE, TRUE, 2),
-  (FALSE, TRUE, 3),
-  (FALSE, TRUE, 1),
-  (TRUE, TRUE, 4),
-  (TRUE, TRUE, 2),
-  (TRUE, TRUE, 5),
-  (TRUE, TRUE, 6);
+  (TRUE,  TRUE,  2),
+  (TRUE, TRUE,  3);
 
 -- 8) Inscriptions d adhérents
 INSERT INTO inscription(date_inscription, id_status) VALUES
-  ('2025-01-10', 1),
+  ('2025-01-10', 3),
   ('2024-09-05', 2),
-  ('2025-03-15', 1),
-  ('2025-04-20', 1),
-  ('2025-05-10', 1);
+  ('2025-03-15', 3),
+  ('2025-04-20', 3),
+  ('2025-05-10', 3);
 
 -- 9) Utilisateurs
 INSERT INTO users(nom, mot_de_passe, id_type_users) VALUES
   ('admin',    '123', 1),
-  ('client1',  '123', 2),
-  ('client2',  '123', 2),
-  ('client3',  '123', 2),
-  ('client4',  '123', 2),
-  ('client5',  '123', 2),
-  ('client6',  '123', 2),
-  ('client7',  '123', 2);
+  ('ETU001',  '123', 2),
+  ('ETU002',  '123', 2),
+  ('ETU003',  '123', 2),
+  ('ENS001',  '123', 2),
+  ('ENS002',  '123', 2),
+  ('ENS003',  '123', 2),
+  ('PROF001',  '123', 2),
+  ('PROF002',  '123', 2);
 
 -- 10) Adhérents (téléphones uniques)
 INSERT INTO adherant(nom, prenom, date_de_naissance, telephone, limite_quota, id_users, id_inscription, id_type_adherant) VALUES
-  ('Martin',  'Alice',  '1995-04-12', 611111111, 3, 5, 1, 3),
-  ('Leblanc', 'Bruno',  '1980-11-03', 622222222, 5, 3, 2, 1),
-  ('Bernard','Sophie', '1990-08-22', 633333333, 4, 6, 3, 1),
-  ('Petit',  'Thomas', '1998-12-05', 644444444, 3, 7, 4, 3),
-  ('Robert', 'Julie',  '1985-03-30', 655555555, 5, 8, 5, 2);
-
--- 11) Réservations (après adhérents)
-INSERT INTO reservation(date_reservation, id_status, id_adherant) VALUES
-  ('2025-07-01', 3, 1),
-  ('2025-06-25', 1, 4);
-
--- 12) Prêts (après adhérents)
-INSERT INTO pret(date_pret, date_retour_estime, date_retour_reel, quota_actuel, id_type_pret, id_adherant, id_status) VALUES
-  ('2025-06-20', '2025-06-27', NULL, 4, 2, 1, 1),
-  ('2025-06-01', '2025-06-01', '2025-06-01', 0, 1, 2, 2),
-  ('2025-06-10', '2025-06-24', NULL, 2, 2, 3, 1),
-  ('2025-06-15', '2025-06-29', '2025-06-28', 0, 2, 5, 2);
-
--- 13) Prolongements (après prêts)
-INSERT INTO prolongement(date_prolongement, nouvelle_date_retour, nbr_prolongement_actuel, id_pret, id_status) VALUES
-  ('2025-06-26', '2025-07-04', 1, 1, 1);
+  ('Amine',  'Besaid',  '1995-04-12', 611111111, 2, 2, 1, 1),
+  ('Sarah', 'El Khattabi',  '1980-11-03', 622222222, 2, 3, 2, 1),
+  ('Youssef','Moujahid', '1990-08-22', 633333333, 2, 4, 3, 1),
+  ('Nadia',  'Benali', '1998-12-05', 644444424, 3, 5, 4, 2),
+  ('Karim', 'Haddadi',  '1985-03-30', 655555555, 3, 6, 5, 2),
+  ('Salima',  'Touhami', '1998-12-05', 644844444, 3, 7, 4, 2),
+  ('Rachid',  'El Mansouri', '1998-12-05', 644447444, 4, 8, 4, 3),
+  ('Amina',  'Zerouali', '1998-12-05', 649444444, 4, 9, 4, 3);
 
 -- 14) Pénalités (prêts et adhérents uniques)
 INSERT INTO penalite(motif, date_debut_penalite, est_reglee, duree, id_pret, id_adherant) VALUES
-  ('Retard de retour', '2025-06-28', FALSE, 7, 1, 1),
-  ('Livre abîmé',      '2025-06-30', TRUE,  10, 4, 3);
+  ('Retard de retour', '2025-06-28', TRUE, 10, NULL, 1),
+  ('Livre abîmé',      '2025-06-30', TRUE,  10, NULL, 2),
+  ('Retard de retour', '2025-06-28', TRUE, 10, NULL, 3),
+  ('Retard de retour', '2025-06-28', TRUE, 10, NULL, 4),
+  ('Retard de retour', '2025-06-28', TRUE, 10, NULL, 5),
+  ('Retard de retour', '2025-06-28', TRUE, 10, NULL, 6),
+  ('Retard de retour', '2025-06-28', TRUE, 10, NULL, 7),
+  ('Retard de retour', '2025-06-28', TRUE, 10, NULL, 8);
 
 -- 15) Abonnements (après adhérents)
 INSERT INTO abonnement(date_debut, date_fin, id_adherant) VALUES
-  ('2025-01-01', '2025-12-31', 1),
-  ('2024-07-01', '2025-06-30', 2);
+  ('2025-02-01', '2025-07-24', 1),
+  ('2025-02-01', '2025-07-01', 2),
+  ('2025-04-01', '2025-12-01', 3),
+  ('2025-07-01', '2026-07-01', 4),
+  ('2025-08-01', '2026-05-01', 5),
+  ('2025-07-01', '2026-06-01', 6),
+  ('2025-06-01', '2025-12-24', 7),
+  ('2024-10-01', '2025-06-01', 8);
 
--- 16) Association prêt ↔ exemplaire
-INSERT INTO preter_exemplaire(id_exemplaire, id_pret) VALUES
-  (1, 1),
-  (2, 2),
-  (3, 3),
-  (4, 4);
-
--- 17) Association réservation ↔ exemplaire
-INSERT INTO reserver_exemplaire(id_exemplaire, id_reservation) VALUES
-  (3, 1);

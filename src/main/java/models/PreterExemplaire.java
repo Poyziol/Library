@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,35 +18,19 @@ public class PreterExemplaire
     @Column(name = "id_preter_exemplaire")  
     private Integer idPreterExemplaire;
 
-    @Column(name = "id_exemplaire")  
-    private Integer idExemplaire;
+    @ManyToOne @JoinColumn(name="id_pret", nullable=false)
+    private Pret pret;
 
-    @Column(name = "id_pret")  
-    private Integer idPret;
+    @ManyToOne @JoinColumn(name="id_exemplaire", nullable=false)
+    private Exemplaire exemplaire;
 
     // ====================== Getters / Setters ======================== //
 
     public PreterExemplaire() {}
 
-    public PreterExemplaire(Integer idExemplaire, Integer idPret) {
-        this.idExemplaire = idExemplaire;
-        this.idPret = idPret;
-    }
-
-    public Integer getIdExemplaire() {
-        return idExemplaire;
-    }
-
-    public void setIdExemplaire(Integer idExemplaire) {
-        this.idExemplaire = idExemplaire;
-    }
-
-    public Integer getIdPret() {
-        return idPret;
-    }
-
-    public void setIdPret(Integer idPret) {
-        this.idPret = idPret;
+    public PreterExemplaire(Pret pret, Exemplaire exemplaire) {
+        this.pret = pret;
+        this.exemplaire = exemplaire;
     }
 
     public Integer getIdPreterExemplaire() {
@@ -54,5 +40,23 @@ public class PreterExemplaire
     public void setIdPreterExemplaire(Integer idPreterExemplaire) {
         this.idPreterExemplaire = idPreterExemplaire;
     }
+
+    public Pret getPret() {
+        return pret;
+    }
+
+    public void setPret(Pret pret) {
+        this.pret = pret;
+    }
+
+    public Exemplaire getExemplaire() {
+        return exemplaire;
+    }
+
+    public void setExemplaire(Exemplaire exemplaire) {
+        this.exemplaire = exemplaire;
+    }
+
+    
 
 }

@@ -34,7 +34,7 @@ public class Penalite
     private Integer duree;
 
     @ManyToOne
-    @JoinColumn(name = "id_pret", nullable = false)
+    @JoinColumn(name = "id_pret")
     private Pret pret;
 
     @ManyToOne(fetch = FetchType.LAZY)

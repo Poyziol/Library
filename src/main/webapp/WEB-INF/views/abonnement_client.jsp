@@ -39,21 +39,9 @@
           <% if (abo != null) { %>
             <p>Bonjour <strong><%= abo.getAdherant().getNom() %> <%= abo.getAdherant().getPrenom() %></strong>,</p>
             <p>Votre abonnement est valide jusqu au <strong><%= abo.getDateFin() %></strong>.</p>
-            <form method="post" action="<%= request.getContextPath() %>/abonnement">
-              <input type="hidden" name="action" value="renew"/>
-              <button type="submit" class="btn-login">Renouveler 1 an</button>
-            </form>
           <% } else { %>
-            <p>Vous n êtes pas encore abonné·e. Souscrivez ci dessous :</p>
-            <form method="post" action="<%= request.getContextPath() %>/abonnement" class="filter-bar">
-              <label for="dateDebut">Date début</label>
-              <input type="date" id="dateDebut" name="dateDebut" required/>
-              <label for="dateFin">Date fin</label>
-              <input type="date" id="dateFin" name="dateFin" required/>
-              <button type="submit" class="btn-login">S abonner</button>
-            </form>
+            <p>Vous n êtes pas encore abonné·e. 
           <% } %>
-
         </div>
       </section>
     </div>

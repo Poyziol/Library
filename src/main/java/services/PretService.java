@@ -184,6 +184,7 @@ public class PretService
         p.setStatus(stat); 
 
         repo.save(p);
+        
     }
 }
 
